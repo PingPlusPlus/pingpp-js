@@ -53,7 +53,7 @@ collection.send = function() {
   if (typeof localStorage === 'undefined') return;
   var _this = this;
   if (typeof localStorage.PPP_ONE_STATS === 'undefined' ||
-    localStorage.PPP_ONE_STATS.length < _this.limit) {
+    localStorage.PPP_ONE_STATS.split(_this.seperator).length < _this.limit) {
     return;
   }
   try {

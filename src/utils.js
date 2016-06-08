@@ -16,6 +16,9 @@ var utils = module.exports = {
     }
     var output = [];
     for (var i in data) {
+      if (!hasOwn.call(data, i) || typeof data[i] === 'function') {
+        continue;
+      }
       if (channel == 'bfb_wap' && i == 'url') {
         continue;
       }
