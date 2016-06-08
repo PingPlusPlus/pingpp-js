@@ -1,9 +1,19 @@
 {
   "name": "pingpp-js",
   "version": "2.1.0",
-  "description": "Pingplusplus JS SDK",
-  "main": "index.js",
-  "repository": {},
+  "description": "Ping++ HTML5 SDK",
+  "main": "dist/pingpp.js",
+  "homepage": "https://www.pingxx.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/PingPlusPlus/pingpp-js.git"
+  },
+  "keywords": [
+    "javascript",
+    "payment",
+    "library",
+    "browser"
+  ],
   "dependencies": {},
   "devDependencies": {
     "browserify": "^13.0.0",
