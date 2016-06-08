@@ -88,6 +88,7 @@ _以下示例中，Server-SDK 以 `php` 为例，其他语言请参考各语言 
   header('Location: ' . $url);
   ```
   - 用户确认授权后，使用 `code` 获取 `open_id`，其中 `$wx_app_secret` 是你的`微信公众号应用密钥`
+
   ```php
   <?php
   $code = $_GET['code'];
@@ -106,7 +107,7 @@ _以下示例中，Server-SDK 以 `php` 为例，其他语言请参考各语言 
     "subject":   "Your Subject",
     "body":      "Your Body",
     "extra": {
-      "open_id":    open_id
+      "open_id": open_id
     }
   }
   ```
