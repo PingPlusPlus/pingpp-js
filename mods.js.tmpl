@@ -1,0 +1,25 @@
+var hasOwn = {}.hasOwnProperty;
+var mods = {};
+module.exports = mods;
+
+mods.channels = {
+<<REPLACE-CHANNELS>>
+};
+
+mods.extras = {
+<<REPLACE-EXTRAS>>
+};
+
+mods.getChannelModule = function(channel) {
+  if (hasOwn.call(mods.channels, channel)) {
+    return mods.channels[channel];
+  }
+  return undefined;
+};
+
+mods.getExtraModule = function(name) {
+  if (hasOwn.call(mods.extras, name)) {
+    return mods.extras[name];
+  }
+  return undefined;
+};
