@@ -56,9 +56,22 @@ gulp build --wx_jssdk
 
 ## 使用说明
 #### 引入 JS 文件
-``` html
-<script src="/path/to/pingpp.js"></script>
-```
+- script 标签方式
+
+    ``` html
+    <script src="/path/to/pingpp.js"></script>
+    ```
+
+- Browserify 打包方式
+
+    首先使用 npm 下载
+    ``` bash
+    npm install pingpp-js
+    ```
+    使用
+    ``` javascript
+    var pingpp = require('pingpp-js');
+    ```
 
 #### 使用服务端创建的 [charge](https://www.pingxx.com/docs/overview) 调用接口
 ``` javascript
