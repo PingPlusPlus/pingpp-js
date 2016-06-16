@@ -23,7 +23,7 @@ npm install
 ``` bash
 gulp build --channels="alipay_wap wx_pub upacp_wap"
 ```
-可选的渠道模块请插件请查看 [src/channels](/src/channels) 目录下的文件名
+可选的渠道模块请查看 [src/channels](/src/channels) 目录下的文件名
 
 ##### --name
 设置对象变量名
@@ -76,13 +76,13 @@ gulp build --wx_jssdk
 #### 使用服务端创建的 [charge](https://www.pingxx.com/docs/overview) 调用接口
 ``` javascript
 pingpp.createPayment(charge, function(result, err){
-    if (result == "success") {
-        // 只有微信公众账号 wx_pub 支付成功的结果会在这里返回，其他的支付结果都会跳转到 extra 中对应的 URL。
-    } else if (result == "fail") {
-        // charge 不正确或者微信公众账号支付失败时会在此处返回
-    } else if (result == "cancel") {
-        // 微信公众账号支付取消支付
-    }
+  if (result == "success") {
+    // 只有微信公众账号 wx_pub 支付成功的结果会在这里返回，其他的支付结果都会跳转到 extra 中对应的 URL。
+  } else if (result == "fail") {
+    // charge 不正确或者微信公众账号支付失败时会在此处返回
+  } else if (result == "cancel") {
+    // 微信公众账号支付取消支付
+  }
 });
 ```
 如果 `charge` 正确的话，会跳转到相应的支付页面，要求用户进行付款。
@@ -128,10 +128,10 @@ _以下示例中，Server-SDK 以 `php` 为例，其他语言请参考各语言 
 
   ```js
   pingpp.createPayment(charge, function(result, err) {
-      if (result=="success") {
-          // payment succeeded
-      } else {
-          console.log(result+" "+err.msg+" "+err.extra);
-      }
+    if (result=="success") {
+      // payment succeeded
+    } else {
+      console.log(result+" "+err.msg+" "+err.extra);
+    }
   });
   ```
