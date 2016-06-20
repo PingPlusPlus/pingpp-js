@@ -6,6 +6,13 @@ module.exports = {
   SRC_URL: 'https://cookie.pingxx.com',
 
   init: function() {
+    var self = this;
+    utils.documentReady(function(){
+      self.initPuid();
+    });
+  },
+
+  initPuid: function() {
     if (typeof window === 'undefined' || typeof localStorage === 'undefined') {
       return;
     }

@@ -145,5 +145,17 @@ var utils = module.exports = {
     }
     var ua = navigator.userAgent.toLowerCase();
     return ua.indexOf('micromessenger') !== -1;
+  },
+
+  documentReady: function(fn) {
+    if (typeof document === 'undefined') {
+      fn();
+      return;
+    }
+    if (document.readyState != 'loading'){
+      fn();
+    } else {
+      document.addEventListener('DOMContentLoaded', fn);
+    }
   }
 };
