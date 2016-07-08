@@ -13,6 +13,7 @@ mods.channels = {
   upacp_pc: require('./channels/upacp_pc'),
   upacp_wap: require('./channels/upacp_wap'),
   wx_pub: require('./channels/wx_pub'),
+  wx_wap: require('./channels/wx_wap'),
   yeepay_wap: require('./channels/yeepay_wap')
 };
 
