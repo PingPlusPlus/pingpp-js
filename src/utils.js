@@ -44,7 +44,7 @@ var utils = module.exports = {
    */
   request: function(url, method, requestData,
     successCallback, errorCallback, headers) {
-    if (typeof XMLHttpRequest !== 'function') {
+    if (typeof XMLHttpRequest === 'undefined') {
       console.log('Function XMLHttpRequest is undefined.');
       return;
     }

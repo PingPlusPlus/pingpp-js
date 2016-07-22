@@ -22,7 +22,7 @@ var getHost = function() {
 };
 
 collection.store = function(obj) {
-  if (typeof localStorage === 'undefined') return;
+  if (typeof localStorage === 'undefined' || localStorage === null) return;
   var _this = this;
   var reportData = {};
   reportData.app_id = obj.app_id || stash.app_id || 'app_not_defined';
@@ -50,7 +50,7 @@ collection.store = function(obj) {
 };
 
 collection.send = function() {
-  if (typeof localStorage === 'undefined') return;
+  if (typeof localStorage === 'undefined' || localStorage === null) return;
   var _this = this;
   if (typeof localStorage.PPP_ONE_STATS === 'undefined' ||
     localStorage.PPP_ONE_STATS.split(_this.seperator).length < _this.limit) {
