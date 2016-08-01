@@ -5,7 +5,7 @@ module.exports = {
 
   run: function() {
     var version = require('../package.json').version;
-    var pingpp = require('../dist/pingpp');
+    var pingpp = require('../src/main.js');
     if (version != pingpp.version) {
       console.log('Version number does not match.');
     } else {

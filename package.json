@@ -1,8 +1,8 @@
 {
   "name": "pingpp-js",
-  "version": "2.1.3",
+  "version": "2.1.4",
   "description": "Ping++ HTML5 SDK",
-  "main": "dist/pingpp.js",
+  "main": "src/main.js",
   "homepage": "https://www.pingxx.com",
   "repository": {
     "type": "git",
