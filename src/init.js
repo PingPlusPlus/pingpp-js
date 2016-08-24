@@ -16,12 +16,14 @@ module.exports = {
     if (typeof window === 'undefined' || typeof localStorage === 'undefined') {
       return;
     }
-    var puid;
-    if (typeof localStorage.pingpp_uid == 'undefined') {
+    var puid = localStorage.getItem('pingpp_uid');
+    if (puid === null) {
       puid = utils.randomString();
-      localStorage.pingpp_uid = puid;
-    } else {
-      puid = localStorage.pingpp_uid;
+      try {
+        localStorage.setItem('pingpp_uid', puid);
+      } catch (e) {
+        /* empty */
+      }
     }
     stash.puid = puid;
     if (!document.getElementById('p_analyse_iframe')) {

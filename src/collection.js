@@ -40,25 +40,31 @@ collection.store = function(obj) {
     '&type=' + reportData.type + '&user_agent=' + reportData.user_agent +
     '&puid=' + reportData.puid;
 
-  if (typeof localStorage.PPP_ONE_STATS === 'undefined' ||
-    localStorage.PPP_ONE_STATS.length === 0) {
-    localStorage.PPP_ONE_STATS = reportStr;
-  } else {
-    localStorage.PPP_ONE_STATS = localStorage.PPP_ONE_STATS +
+  var statsToSave = reportStr;
+  if (localStorage.getItem('PPP_ONE_STATS') !== null &&
+    localStorage.getItem('PPP_ONE_STATS').length !== 0
+  ) {
+    statsToSave = localStorage.getItem('PPP_ONE_STATS') +
       _this.seperator + reportStr;
+  }
+  try {
+    localStorage.setItem('PPP_ONE_STATS', statsToSave);
+  } catch (e) {
+    /* empty */
   }
 };
 
 collection.send = function() {
   if (typeof localStorage === 'undefined' || localStorage === null) return;
   var _this = this;
-  if (typeof localStorage.PPP_ONE_STATS === 'undefined' ||
-    localStorage.PPP_ONE_STATS.split(_this.seperator).length < _this.limit) {
+  var pppOneStats = localStorage.getItem('PPP_ONE_STATS');
+  if (pppOneStats === null ||
+    pppOneStats.split(_this.seperator).length < _this.limit) {
     return;
   }
   try {
     var data = [];
-    var origin = localStorage.PPP_ONE_STATS.split(_this.seperator);
+    var origin = pppOneStats.split(_this.seperator);
     var token = md5(origin.join('&'));
 
     for (var i = 0; i < origin.length; i++) {
