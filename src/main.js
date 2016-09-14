@@ -34,6 +34,23 @@ PingppSDK.prototype = {
       callbacks.innerCallback('fail', callbacks.error('json_decode_fail'));
       return;
     }
+
+    if (hasOwn.call(charge, 'object') && charge.object == "order") {
+      try {
+        var charge_essentials = charge.charge_essentials;
+        charge.channel = charge_essentials.channel;
+        charge.id = charge.charge;
+        charge.extra = charge_essentials.extra;
+        charge.credential = charge_essentials.credential;
+        charge.order_no = charge.merchant_order_no;
+        delete charge.charge_essentials;
+      } catch (err) {
+        callbacks.innerCallback('fail',
+            callbacks.error('invalid_order', err));
+        return;
+      }
+    }
+
     if (!hasOwn.call(charge, 'id')) {
       callbacks.innerCallback('fail',
         callbacks.error('invalid_charge', 'no_charge_id'));
