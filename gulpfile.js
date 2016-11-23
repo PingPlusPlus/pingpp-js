@@ -27,7 +27,7 @@ var deprecatedChannels = ['upmp_wap'];
 var parseArgs = require('minimist');
 var cmdOptions = parseArgs(process.argv.slice(2), {
   boolean: ['alipay_in_weixin', 'wx_jssdk'],
-  string: ['channels', 'name']
+  string: ['channels', 'name', 'one']
 });
 
 gulp.task('default', ['build']);
@@ -63,8 +63,12 @@ gulp.task('build', ['clean', 'modules'], function() {
 
 gulp.task('modules', [], function() {
   var channels = makeChannelModulesContent();
+
   var libs = makeLibModulesContent();
   var tmpl = fs.readFileSync(__dirname + '/mods.js.tmpl', 'utf8');
+
+  console.log(channels.replacement);
+
   var modsContents = _.replace(tmpl,
     replaceChannelsPattern,
     channels.replacement);
@@ -119,12 +123,14 @@ var makeChannelModulesContent = function() {
       return !_.includes(deprecatedChannels, ch);
     });
   }
+
   var channelsContents = [];
   for (var i = 0; i < enabledChannels.length; i++) {
     var line = enabledChannels[i] +
       ': require(\'' + channelsDir + enabledChannels[i] + '\')';
     channelsContents.push(line);
   }
+
   return {
     replacement: modnames2text(enabledChannels, channelsDir),
     enabledChannels: enabledChannels
@@ -157,5 +163,10 @@ var modnames2text = function(modnames, baseDir) {
       ': require(\'' + baseDir + modnames[i] + '\')';
     modsContents.push(line);
   }
+
+  if(hasOwn.call(cmdOptions, 'one') && cmdOptions.one == 'true'){
+    modsContents.push('one: require(\'./pingpp_one/init\')');
+  }
+
   return '  ' + _.join(modsContents, ',\n  ');
 };

@@ -9,8 +9,12 @@ module.exports = {
     var params = {
       'ch_id': charge.id,
       'scheme': 'http',
-      'channel': charge.channel
+      'channel': charge.channel,
+      'order_id': charge.order_id
     };
+
+    alert(JSON.stringify(params));
+
     if (hasOwn.call(charge, 'order_no')) {
       params.order_no = charge.order_no;
     } else if (hasOwn.call(charge, 'orderNo')) {

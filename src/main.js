@@ -39,6 +39,7 @@ PingppSDK.prototype = {
       try {
         var charge_essentials = charge.charge_essentials;
         charge.channel = charge_essentials.channel;
+        charge.order_id = charge.id;
         charge.id = charge.charge;
         charge.extra = charge_essentials.extra;
         charge.credential = charge_essentials.credential;
@@ -124,6 +125,16 @@ PingppSDK.prototype = {
 
   setAPURL: function(url) {
     stash.APURL = url;
+  },
+
+  pingppOne: function(opt, callback){
+    var one = mods.getChannelModule("one");
+    one.init(opt, callback);
+  },
+
+  resume: function(){
+    var one = mods.getChannelModule("one");
+    one.resume();
   }
 };
 
