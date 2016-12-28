@@ -127,14 +127,19 @@ PingppSDK.prototype = {
     stash.APURL = url;
   },
 
-  pingppOne: function(opt, callback){
+  pingppOne: function(opt, callback) {
     var one = mods.getChannelModule("one");
     one.init(opt, callback);
   },
 
-  resume: function(){
+  resume: function() {
     var one = mods.getChannelModule("one");
     one.resume();
+  },
+
+  success: function(callback){
+    var one = mods.getChannelModule("one");
+    one.success(callback);
   }
 };
 

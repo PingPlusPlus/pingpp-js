@@ -110,11 +110,13 @@ module.exports = {
         //如果不在微信webview里，不能传wx_pub
         if (_channel.wx_pub && !comUtil.inWeixin()) {
             channel = utils.removeFromArray(channel, 'wx_pub');
+            delete _channel.wx_pub;
         }
 
         //如果在微信webview里，不能传upmp_wap
         if (_channel.upmp_wap && comUtil.inWeixin()) {
             channel = utils.removeFromArray(channel, 'upmp_wap');
+            delete _channel.upmp_wap;
         }
 
         //如果传了wx_pub则需要传openid
@@ -146,5 +148,9 @@ module.exports = {
 
     resume: function(){
         pingpp.createPayment(stash.charge, bind.callbackCharge);
+    },
+
+    success: function(callback){
+        stash.successCallback = callback;
     }
 };
