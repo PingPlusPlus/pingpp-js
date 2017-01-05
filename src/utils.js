@@ -10,7 +10,7 @@ var utils = module.exports = {
    *
    * @return string query string
    */
-  stringifyData: function(data, channel, urlencode) {
+  stringifyData: function (data, channel, urlencode) {
     if (typeof urlencode == 'undefined') {
       urlencode = false;
     }
@@ -42,7 +42,7 @@ var utils = module.exports = {
    * @param function successCallback  成功回调 (data, statusCode, xhr)
    * @param function errorCallback  错误回调 (xhr, statusCode, error)
    */
-  request: function(url, method, requestData,
+  request: function (url, method, requestData,
     successCallback, errorCallback, headers) {
     if (typeof XMLHttpRequest === 'undefined') {
       console.log('Function XMLHttpRequest is undefined.');
@@ -72,17 +72,17 @@ var utils = module.exports = {
       xhr.send();
     }
     if (typeof successCallback == 'undefined') {
-      successCallback = function() {};
+      successCallback = function () {};
     }
     if (typeof errorCallback == 'undefined') {
-      errorCallback = function() {};
+      errorCallback = function () {};
     }
-    xhr.onreadystatechange = function() {
+    xhr.onreadystatechange = function () {
       if (xhr.readyState == 4) {
         successCallback(xhr.responseText, xhr.status, xhr);
       }
     };
-    xhr.onerror = function(e) {
+    xhr.onerror = function (e) {
       errorCallback(xhr, 0, e);
     };
   },
@@ -93,7 +93,7 @@ var utils = module.exports = {
    * @param string method  请求方式, POST, GET ...
    * @param object params  请求数据
    */
-  formSubmit: function(url, method, params) {
+  formSubmit: function (url, method, params) {
     if (typeof window === 'undefined') {
       console.log('Not a browser, form submit url: ' + url);
       return;
@@ -116,7 +116,7 @@ var utils = module.exports = {
     form.submit();
   },
 
-  randomString: function(length) {
+  randomString: function (length) {
     if (typeof length == 'undefined') {
       length = 32;
     }
@@ -131,7 +131,7 @@ var utils = module.exports = {
     return str;
   },
 
-  redirectTo: function(url) {
+  redirectTo: function (url) {
     if (typeof window === 'undefined') {
       console.log('Not a browser, redirect url: ' + url);
       return;
@@ -139,7 +139,7 @@ var utils = module.exports = {
     window.location.href = url;
   },
 
-  inWeixin: function() {
+  inWeixin: function () {
     if (typeof navigator === 'undefined') {
       return false;
     }
@@ -147,15 +147,45 @@ var utils = module.exports = {
     return ua.indexOf('micromessenger') !== -1;
   },
 
-  documentReady: function(fn) {
+  documentReady: function (fn) {
     if (typeof document === 'undefined') {
       fn();
       return;
     }
-    if (document.readyState != 'loading'){
+    if (document.readyState != 'loading') {
       fn();
     } else {
       document.addEventListener('DOMContentLoaded', fn);
+    }
+  },
+
+  loadUrlJs: function (sid, jsurl, callback) {
+    var nodeHead = document.getElementsByTagName('head')[0];
+    var nodeScript = null;
+    if (document.getElementById(sid) == null) {
+      nodeScript = document.createElement('script');
+      nodeScript.setAttribute('type', 'text/javascript');
+      nodeScript.setAttribute('src', jsurl);
+      nodeScript.setAttribute('id', sid);
+      nodeScript.async = true;
+      if (callback != null) {
+        nodeScript.onload = nodeScript.onreadystatechange = function () {
+          if (nodeScript.ready) {
+            return false;
+          }
+
+          if (!nodeScript.readyState || nodeScript.readyState == 'loaded'
+              || nodeScript.readyState == 'complete') {
+            nodeScript.ready = true;
+            callback();
+          }
+        };
+      }
+      nodeHead.appendChild(nodeScript);
+    } else {
+      if (callback != null) {
+        callback();
+      }
     }
   }
 };

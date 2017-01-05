@@ -4,9 +4,10 @@ var callbacks = require('./callbacks');
 var mods = require('./mods');
 var stash = require('./stash');
 var dc = require('./collection');
+var payment_elements = require('./payment_elements');
 
 var hasOwn = {}.hasOwnProperty;
-var PingppSDK = function() {
+var PingppSDK = function () {
   require('./init').init();
 };
 
@@ -14,84 +15,71 @@ PingppSDK.prototype = {
 
   version: version,
 
-  createPayment: function(chargeJSON, callback, signature, debug) {
+  createPayment: function (chargeJSON, callback, signature, debug) {
     if (typeof callback === 'function') {
       callbacks.userCallback = callback;
     }
-    var charge;
-    if (typeof chargeJSON === 'string') {
-      try {
-        charge = JSON.parse(chargeJSON);
-      } catch (err) {
-        callbacks.innerCallback('fail',
-          callbacks.error('json_decode_fail', err));
-        return;
-      }
-    } else {
-      charge = chargeJSON;
-    }
-    if (typeof charge === 'undefined') {
-      callbacks.innerCallback('fail', callbacks.error('json_decode_fail'));
-      return;
-    }
-    if (!hasOwn.call(charge, 'id')) {
+
+    payment_elements.init(chargeJSON);
+
+    if (!hasOwn.call(payment_elements, 'id')) {
       callbacks.innerCallback('fail',
-        callbacks.error('invalid_charge', 'no_charge_id'));
+          callbacks.error('invalid_charge', 'no_charge_id'));
       return;
     }
-    if (!hasOwn.call(charge, 'channel')) {
+    if (!hasOwn.call(payment_elements, 'channel')) {
       callbacks.innerCallback('fail',
-        callbacks.error('invalid_charge', 'no_channel'));
+          callbacks.error('invalid_charge', 'no_channel'));
       return;
     }
-    if (hasOwn.call(charge, 'app')) {
-      if (typeof charge.app === 'string') {
-        stash.app_id = charge.app;
-      } else if (typeof charge.app === 'object' &&
-        typeof charge.app.id === 'string') {
-        stash.app_id = charge.app.id;
+    if (hasOwn.call(payment_elements, 'app')) {
+      if (typeof payment_elements.app === 'string') {
+        stash.app_id = payment_elements.app;
+      } else if (typeof payment_elements.app === 'object' &&
+          typeof payment_elements.app.id === 'string') {
+        stash.app_id = payment_elements.app.id;
       }
     }
     dc.report({
       type: 'pure_sdk_click',
-      channel: charge.channel,
-      ch_id: charge.id
+      channel: payment_elements.channel,
+      ch_id: payment_elements.id
     });
-    var channel = charge.channel;
-    if (!hasOwn.call(charge, 'credential')) {
+    var channel = payment_elements.channel;
+    if (!hasOwn.call(payment_elements, 'credential')) {
       callbacks.innerCallback('fail',
-        callbacks.error('invalid_charge', 'no_credential'));
+          callbacks.error('invalid_charge', 'no_credential'));
       return;
     }
-    if (!charge.credential) {
+    if (!payment_elements.credential) {
       callbacks.innerCallback('fail',
-        callbacks.error('invalid_credential', 'credential_is_undefined'));
+          callbacks.error('invalid_credential', 'credential_is_undefined'));
       return;
     }
-    if (!hasOwn.call(charge.credential, channel)) {
+    if (!hasOwn.call(payment_elements.credential, channel)) {
       callbacks.innerCallback('fail',
-        callbacks.error('invalid_credential', 'credential_is_incorrect'));
+          callbacks.error('invalid_credential', 'credential_is_incorrect'));
       return;
     }
-    if (!hasOwn.call(charge, 'livemode')) {
+    if (!hasOwn.call(payment_elements, 'livemode')) {
       callbacks.innerCallback('fail',
-        callbacks.error('invalid_charge', 'no_livemode_field'));
+          callbacks.error('invalid_charge', 'no_livemode_field'));
       return;
     }
     var channelModule = mods.getChannelModule(channel);
     if (typeof channelModule === 'undefined') {
       console.error('channel module "' + channel + '" is undefined');
       callbacks.innerCallback('fail',
-        callbacks.error('invalid_channel',
-          'channel module "' + channel + '" is undefined')
+          callbacks.error('invalid_channel',
+              'channel module "' + channel + '" is undefined')
       );
       return;
     }
-    if (charge.livemode === false) {
+    if (payment_elements.livemode === false) {
       if (hasOwn.call(channelModule, 'runTestMode')) {
-        channelModule.runTestMode(charge);
+        channelModule.runTestMode(payment_elements);
       } else {
-        testmode.runTestMode(charge);
+        testmode.runTestMode(payment_elements);
       }
       return;
     }
@@ -102,10 +90,10 @@ PingppSDK.prototype = {
     if (typeof debug == 'boolean') {
       stash.debug = debug;
     }
-    channelModule.handleCharge(charge);
+    channelModule.handleCharge(payment_elements);
   },
 
-  setAPURL: function(url) {
+  setAPURL: function (url) {
     stash.APURL = url;
   }
 };

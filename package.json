@@ -1,6 +1,6 @@
 {
   "name": "pingpp-js",
-  "version": "2.1.5",
+  "version": "2.1.6",
   "description": "Ping++ HTML5 SDK",
   "main": "src/main.js",
   "homepage": "https://www.pingxx.com",

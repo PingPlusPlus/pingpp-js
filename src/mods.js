@@ -10,6 +10,7 @@ mods.channels = {
   fqlpay_qr: require('./channels/fqlpay_qr'),
   fqlpay_wap: require('./channels/fqlpay_wap'),
   jdpay_wap: require('./channels/jdpay_wap'),
+  qpay_pub: require('./channels/qpay_pub'),
   upacp_pc: require('./channels/upacp_pc'),
   upacp_wap: require('./channels/upacp_wap'),
   wx_pub: require('./channels/wx_pub'),

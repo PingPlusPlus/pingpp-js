@@ -1,3 +1,4 @@
+var payment_elements = require('./payment_elements.js');
 module.exports = {
 
   userCallback: undefined,
@@ -9,6 +10,7 @@ module.exports = {
       }
       this.userCallback(result, err);
       this.userCallback = undefined;
+      payment_elements.clear();
     }
   },
 
