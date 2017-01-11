@@ -34,7 +34,6 @@ module.exports = {
     }
     var wx_lite = stash.jsApiParameters;
     delete wx_lite.appId;
-    console.log("222");
     wx_lite.complete = function (res) {
       //支付成功
       if (res.errMsg === "requestPayment:ok") {
