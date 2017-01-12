@@ -54,6 +54,12 @@ pingpp.setAPURL('http://localhost/your/custom/url');
 gulp build --wx_jssdk
 ```
 
+##### wx_lite
+因为微信小程序中 不能使用其他支付渠道，构建时请添加该参数 
+``` bash
+gulp build --channels=wx_lite
+```
+
 ## 使用说明
 #### 引入 JS 文件
 - script 标签方式
@@ -92,46 +98,98 @@ pingpp.createPayment(charge, function(result, err){
 ### 微信公众号接入注意事项
 _以下示例中，Server-SDK 以 `php` 为例，其他语言请参考各语言 SDK 的文档或者示例_
 #### 关于 open_id
-1. 用 Server-SDK 取得 `open_id`(微信公众号授权用户唯一标识)
-  - 先跳转到微信获取`授权 code`，地址由下方代码生成，`$wx_app_id` 是你的`微信公众号应用唯一标识`，`$redirect_url` 是用户确认授权后跳转的地址，用来接收 `code`
+##### 用 Server-SDK 取得 `open_id`（微信公众号授权用户唯一标识）。
+先跳转到微信获取`授权 code`，地址由下方代码生成，`$wx_app_id` 是你的`微信公众号应用唯一标识`，`$redirect_url` 是用户确认授权后跳转的地址，用来接收 `code`。
+```php
+<?php
+$url = \Pingpp\WxpubOAuth::createOauthUrlForCode($wx_app_id, $redirect_url);
+header('Location: ' . $url);
+```
 
-  ```php
-  <?php
-  $url = \Pingpp\WxpubOAuth::createOauthUrlForCode($wx_app_id, $redirect_url);
-  header('Location: ' . $url);
-  ```
-  - 用户确认授权后，使用 `code` 获取 `open_id`，其中 `$wx_app_secret` 是你的`微信公众号应用密钥`
+用户确认授权后，使用 `code` 获取 `open_id`，其中 `$wx_app_secret` 是你的`微信公众号应用密钥`
+```php
+<?php
+$code = $_GET['code'];
+$open_id = \Pingpp\WxpubOAuth::getOpenid($wx_app_id, $wx_app_secret, $code);
+```
 
-  ```php
-  <?php
-  $code = $_GET['code'];
-  $open_id = \Pingpp\WxpubOAuth::getOpenid($wx_app_id, $wx_app_secret, $code);
-  ```
-2. 将 `open_id` 作为创建 `charge` 时的 `extra` 参数，具体方法参考[技术文档](https://pingxx.com/document/api/#api-c-new)，例：
+##### 将 `open_id` 作为创建 `charge` 时的 `extra` 参数，具体方法参考[技术文档](https://pingxx.com/document/api/#api-c-new)，例：
+```js
+{
+  "order_no":  "1234567890",
+  "app":       {"id": "app_1234567890abcDEF"},
+  "channel":   "wx_pub",
+  "amount":    100,
+  "client_ip": "127.0.0.1",
+  "currency":  "cny",
+  "subject":   "Your Subject",
+  "body":      "Your Body",
+  "extra": {
+    "open_id": open_id
+  }
+}
+```
 
-  ```js
-  {
-    "order_no":  "1234567890",
-    "app":       {"id": "app_1234567890abcDEF"},
-    "channel":   "wx_pub",
-    "amount":    100,
-    "client_ip": "127.0.0.1",
-    "currency":  "cny",
-    "subject":   "Your Subject",
-    "body":      "Your Body",
-    "extra": {
-      "open_id": open_id
+##### 得到 `charge` 后，在页面中引用 `pingpp.js`，调用 `pingpp.createPayment`，结果会直接在 `callback` 中返回。
+```js
+pingpp.createPayment(charge, function(result, err) {
+  if (result=="success") {
+    // payment succeeded
+  } else {
+    console.log(result+" "+err.msg+" "+err.extra);
+  }
+});
+```
+
+### 微信小程序接入注意事项
+_以下示例中，Server-SDK 以 `php` 为例，其他语言请参考各语言 SDK 的文档或者示例_
+#### 关于 open_id
+##### 小程序的 `code` 获取跟公众号的有些不同，小程序是有自己的 `API` 可以在客户端直接获取 `code`。
+```js
+wx.login({
+  success: function(res) {
+    if(res.code){
+      console.log('code = ' + res.code);
+    }else{
+     console.log('获取用户登录态失败！' + res.errMsg);
     }
   }
-  ```
-3. 得到 `charge` 后，在页面中引用 `pingpp.js`，调用 `pingpp.createPayment`，结果会直接在 `callback` 中返回。
+});
+```
 
-  ```js
-  pingpp.createPayment(charge, function(result, err) {
-    if (result=="success") {
-      // payment succeeded
-    } else {
-      console.log(result+" "+err.msg+" "+err.extra);
-    }
-  });
-  ```
+##### 得到 `code` 之后 以 `GET`的方式，请求你自己的服务端。然后在服务端使用 `code` 来获取 `open_id`，其中 `$wx_app_id` 是你的`微信AppID(小程序ID) ` ，`$wx_app_secret` 是你的`微信小程序密钥` 。
+```php
+<?php
+$code = $_GET['code'];
+$open_id = \Pingpp\WxpubOAuth::getOpenid($wx_app_id, $wx_app_secret, $code);
+```
+
+##### 将 `open_id` 作为创建 `charge` 时的 `extra` 参数，具体方法参考[技术文档](https://pingxx.com/document/api/#api-c-new)，例：
+```js
+{
+  "order_no":  "1234567890",
+  "app":       {"id": "app_1234567890abcDEF"},
+  "channel":   "wx_pub",
+  "amount":    100,
+  "client_ip": "127.0.0.1",
+  "currency":  "cny",
+  "subject":   "Your Subject",
+  "body":      "Your Body",
+  "extra": {
+    "open_id": open_id
+  }
+}
+```
+
+##### 得到 `charge` 后，在页面中引用 `pingpp.js` ，调用 `pingpp.createPayment`，结果会直接在 `callback` 中返回。
+
+```js
+var pingpp = require('pingpp.js 的绝对路径');
+pingpp.createPayment(charge, function(result, err) {
+  if (result=="success") {
+    // payment succeeded
+  } else {
+    console.log(result+" "+err.msg+" "+err.extra);
+  }
+});
+```
