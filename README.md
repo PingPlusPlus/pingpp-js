@@ -169,7 +169,7 @@ $open_id = \Pingpp\WxpubOAuth::getOpenid($wx_app_id, $wx_app_secret, $code);
 {
   "order_no":  "1234567890",
   "app":       {"id": "app_1234567890abcDEF"},
-  "channel":   "wx_pub",
+  "channel":   "wx_lite",
   "amount":    100,
   "client_ip": "127.0.0.1",
   "currency":  "cny",
