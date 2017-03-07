@@ -6,7 +6,7 @@ var stash = require('./stash');
 var dc = require('./collection');
 
 var hasOwn = {}.hasOwnProperty;
-var PingppSDK = function() {
+var PingppSDK = function () {
   require('./init').init();
 };
 
@@ -14,7 +14,7 @@ PingppSDK.prototype = {
 
   version: version,
 
-  createPayment: function(chargeJSON, callback, signature, debug) {
+  createPayment: function (chargeJSON, callback, signature, debug) {
     if (typeof callback === 'function') {
       callbacks.userCallback = callback;
     }
@@ -24,7 +24,7 @@ PingppSDK.prototype = {
         charge = JSON.parse(chargeJSON);
       } catch (err) {
         callbacks.innerCallback('fail',
-          callbacks.error('json_decode_fail', err));
+            callbacks.error('json_decode_fail', err));
         return;
       }
     } else {
@@ -35,7 +35,7 @@ PingppSDK.prototype = {
       return;
     }
 
-    if (hasOwn.call(charge, 'object') && charge.object == "order") {
+    if (hasOwn.call(charge, 'object') && charge.object == 'order') {
       try {
         var charge_essentials = charge.charge_essentials;
         charge.channel = charge_essentials.channel;
@@ -54,19 +54,19 @@ PingppSDK.prototype = {
 
     if (!hasOwn.call(charge, 'id')) {
       callbacks.innerCallback('fail',
-        callbacks.error('invalid_charge', 'no_charge_id'));
+          callbacks.error('invalid_charge', 'no_charge_id'));
       return;
     }
     if (!hasOwn.call(charge, 'channel')) {
       callbacks.innerCallback('fail',
-        callbacks.error('invalid_charge', 'no_channel'));
+          callbacks.error('invalid_charge', 'no_channel'));
       return;
     }
     if (hasOwn.call(charge, 'app')) {
       if (typeof charge.app === 'string') {
         stash.app_id = charge.app;
       } else if (typeof charge.app === 'object' &&
-        typeof charge.app.id === 'string') {
+          typeof charge.app.id === 'string') {
         stash.app_id = charge.app.id;
       }
     }
@@ -78,30 +78,30 @@ PingppSDK.prototype = {
     var channel = charge.channel;
     if (!hasOwn.call(charge, 'credential')) {
       callbacks.innerCallback('fail',
-        callbacks.error('invalid_charge', 'no_credential'));
+          callbacks.error('invalid_charge', 'no_credential'));
       return;
     }
     if (!charge.credential) {
       callbacks.innerCallback('fail',
-        callbacks.error('invalid_credential', 'credential_is_undefined'));
+          callbacks.error('invalid_credential', 'credential_is_undefined'));
       return;
     }
     if (!hasOwn.call(charge.credential, channel)) {
       callbacks.innerCallback('fail',
-        callbacks.error('invalid_credential', 'credential_is_incorrect'));
+          callbacks.error('invalid_credential', 'credential_is_incorrect'));
       return;
     }
     if (!hasOwn.call(charge, 'livemode')) {
       callbacks.innerCallback('fail',
-        callbacks.error('invalid_charge', 'no_livemode_field'));
+          callbacks.error('invalid_charge', 'no_livemode_field'));
       return;
     }
     var channelModule = mods.getChannelModule(channel);
     if (typeof channelModule === 'undefined') {
-      console.error('channel module "' + channel + '" is undefined');
+      console.error('channel module \"' + channel + '\" is undefined');
       callbacks.innerCallback('fail',
-        callbacks.error('invalid_channel',
-          'channel module "' + channel + '" is undefined')
+          callbacks.error('invalid_channel',
+              'channel module \"' + channel + '\" is undefined')
       );
       return;
     }
@@ -123,22 +123,22 @@ PingppSDK.prototype = {
     channelModule.handleCharge(charge);
   },
 
-  setAPURL: function(url) {
+  setAPURL: function (url) {
     stash.APURL = url;
   },
 
-  pingppOne: function(opt, callback) {
-    var one = mods.getChannelModule("one");
+  pingppOne: function (opt, callback) {
+    var one = mods.getChannelModule('one');
     one.init(opt, callback);
   },
 
-  resume: function() {
-    var one = mods.getChannelModule("one");
+  resume: function () {
+    var one = mods.getChannelModule('one');
     one.resume();
   },
 
-  success: function(callback){
-    var one = mods.getChannelModule("one");
+  success: function (callback) {
+    var one = mods.getChannelModule('one');
     one.success(callback);
   }
 };

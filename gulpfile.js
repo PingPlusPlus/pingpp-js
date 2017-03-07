@@ -67,8 +67,6 @@ gulp.task('modules', [], function() {
   var libs = makeLibModulesContent();
   var tmpl = fs.readFileSync(__dirname + '/mods.js.tmpl', 'utf8');
 
-  console.log(channels.replacement);
-
   var modsContents = _.replace(tmpl,
     replaceChannelsPattern,
     channels.replacement);

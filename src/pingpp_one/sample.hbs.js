@@ -1,3 +1,4 @@
+/*eslint-disable */
 var Handlebars = require('./handlebars.runtime-v4.0.5.js');
 
 (function () {
@@ -84,3 +85,4 @@ var Handlebars = require('./handlebars.runtime-v4.0.5.js');
         return "<div style=\"position: fixed; top: 0;left: 0;bottom: 0;right: 0; margin: auto;font-size: 18px; line-height: 2; text-align: center; background-color: #fff;\">\n    <div style=\"position: absolute;width: 100px;height: 200px; margin: auto; left: 0; top: 0; right: 0;bottom: 0;\">\n        <img src=\"data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgd2lkdGg9IjY0cHgiIGhlaWdodD0iNjRweCIgdmlld0JveD0iMCAwIDY0IDY0IiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPgogICAgPHRpdGxlPjwvdGl0bGU+CiAgICA8ZyBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj4KICAgICAgICA8cGF0aCBkPSJNMzIsNjQgQzQ5LjY3MzExMiw2NCA2NCw0OS42NzMxMTIgNjQsMzIgQzY0LDE0LjMyNjg4OCA0OS42NzMxMTIsMCAzMiwwIEMxNC4zMjY4ODgsMCAwLDE0LjMyNjg4OCAwLDMyIEMwLDQ5LjY3MzExMiAxNC4zMjY4ODgsNjQgMzIsNjQgWiBNMjcuMjUsMzguNjAyNSBMMjAuNjQ3NSwzMiBMMTguNDA3MDgzMywzNC4yNDA0MTY3IEwyNy4yNSw0My4wODMzMzMzIEw0Ni4yNSwyNC4wODMzMzMzIEw0NC4wMDk1ODMzLDIxLjg0MjkxNjcgTDI3LjI1LDM4LjYwMjUgWiIgaWQ9Ik92YWwtMzYiIGZpbGw9IiM0N0NDQkIiPjwvcGF0aD4KICAgIDwvZz4KPC9zdmc+\" alt=\"\">\n        <div style=\"color: #47ccba;\">支付成功</div>\n    </div>\n    <div style=\"position: absolute;width: 100%;bottom: 75px;\">\n        <a href=\"#\" style=\"display: block; margin: 0 15px;padding: 7px;border-radius:3px; background-color: #47ccba; color: #fff;text-decoration: none;\" id=\"p_one_goon\">完成</a>\n    </div>\n    <div style=\"position: absolute;width: 100%;bottom: 15px; color: #76858c; font-size: 14px;\">支付体验由 Ping++ 提供</div>\n</div>\n";
     },"useData":true});
 })();
+/*eslint-enable */

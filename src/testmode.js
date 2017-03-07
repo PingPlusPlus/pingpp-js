@@ -1,20 +1,16 @@
 var utils = require('./utils');
 var hasOwn = {}.hasOwnProperty;
-
 module.exports = {
-
   PINGPP_MOCK_URL: 'http://sissi.pingxx.com/mock.php',
-
-  runTestMode: function(charge) {
+  runTestMode: function (charge) {
     var params = {
       'ch_id': charge.id,
       'scheme': 'http',
-      'channel': charge.channel,
-      'order_id': charge.order_id
+      'channel': charge.channel
     };
-
-    alert(JSON.stringify(params));
-
+    if (hasOwn.call(charge, 'or_id') && charge.or_id !== null) {
+      params.or_id = charge.or_id;
+    }
     if (hasOwn.call(charge, 'order_no')) {
       params.order_no = charge.order_no;
     } else if (hasOwn.call(charge, 'orderNo')) {
