@@ -1,4 +1,5 @@
 # Pingpp HTML5 SDK
+
 ## 支持的渠道
 - 手机网页支付
     1. 支付宝手机网页支付（alipay_wap）
@@ -15,7 +16,6 @@
     3. 银联企业网银支付 (cp_b2b) 
     
 - 微信公众账号支付(wx_pub)
-
 
 ## 如何构建
 [dist](/dist) 目录下提供了已经构建好的 SDK，使用的命令是 `gulp build --alipay_in_weixin`。
@@ -38,6 +38,7 @@ npm run build
 ``` bash
 npm install
 ```
+
 ##### --channels
 选择渠道，渠道字段用空格或者英文逗号分割，例：
 
@@ -61,7 +62,7 @@ gulp build --name="pingppPc" --channels="alipay_pc_direct upacp_pc"
 gulp build --alipay_in_weixin
 ```
 
-同时，将 [alipay_in_weixin](/alipay_in_weixin) 目录下的 [pay.htm](/alipay_in_weixin/pay.htm) 放于你服务器可访问的路径下,如下两种方法：
+同时，将 [alipay_in_weixin](/alipay_in_weixin) 目录下的 [pay.htm](/alipay_in_weixin/pay.htm) 放于你服务器可访问的路径下，如下两种方法：
 
 - 默认情况下，访问该文件的 URL 需要与你的支付页面时同级的。例：  
 支付页面 URL：http://localhost/project/payment?a=b&c=d  
@@ -234,14 +235,14 @@ pingpp.createPayment(charge, function(result, err) {
 ```
 
 ## 常见问题
-#### 问题一: h5页面微信公众号支付调用ping++提示失败 (来源：工单)
+#### 问题一: H5 页面微信公众号支付调用 Ping++ 提示失败 (来源：工单)
 返回结果: get_brand_wcpay_request: fail
 
 - 报错原因：微信授权目录填写错误。
 - 解决方案：详见[帮助中心](https://help.pingxx.com/article/123339)
 
 #### 问题二：微信内调用支付宝没出现引导界面，只有复制链接到浏览器
-- 报错原因：pay.htm路径出错
+- 报错原因：pay.htm 路径出错
 - 解决方案：
     1. 默认情况下，访问该文件的 URL 需要与你的支付页面时同级的。例：  
         支付页面 URL：http://localhost/project/payment?a=b&c=d  
@@ -257,6 +258,3 @@ pingpp.createPayment(charge, function(result, err) {
 #### 问题三：调不起支付，返回报错信息 json_decode_fail
 - 报错原因：传入的参数不是正确的 JSON 字符串或者 JSON 对象
 - 解决方案：客户端调用 SDK 时，确认服务端输出到客户端时，数据的正确性。
-
-
-
