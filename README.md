@@ -13,6 +13,9 @@
     1. 支付宝电脑网站支付 (alipay_pc_direct) 
     2. 银联网关支付 (upacp_pc) 
     3. 银联企业网银支付 (cp_b2b) 
+    
+- 微信公众账号支付(wx_pub)
+
 
 ## 如何构建
 [dist](/dist) 目录下提供了已经构建好的 SDK，使用的命令是 `gulp build --alipay_in_weixin`。
@@ -236,6 +239,24 @@ pingpp.createPayment(charge, function(result, err) {
 
 - 报错原因：微信授权目录填写错误。
 - 解决方案：详见[帮助中心](https://help.pingxx.com/article/123339)
+
+#### 问题二：微信内调用支付宝没出现引导界面，只有复制链接到浏览器
+- 报错原因：pay.htm路径出错
+- 解决方案：
+    1. 默认情况下，访问该文件的 URL 需要与你的支付页面时同级的。例：  
+        支付页面 URL：http://localhost/project/payment?a=b&c=d  
+        该文件 URL：http://localhost/project/pay.htm
+    2. 你也可以调用 `setAPURL` 方法来自定义该文件 URL。
+
+        ``` js
+        pingpp.setAPURL('http://localhost/your/custom/url');
+        ```
+        
+        该文件([pay.htm](/alipay_in_weixin/pay.htm))内的 `CURRENT_PAGE_URL` 变量也设置为相同的值。
+
+#### 问题三：调不起支付，返回报错信息 json_decode_fail
+- 报错原因：传入的参数不是正确的 JSON 字符串或者 JSON 对象
+- 解决方案：客户端调用 SDK 时，确认服务端输出到客户端时，数据的正确性。
 
 
 
