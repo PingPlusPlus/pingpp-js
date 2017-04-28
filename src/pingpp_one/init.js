@@ -4,8 +4,8 @@
 var stash = require('../stash');
 var mods = require('../mods');
 var comUtil = require('../utils');
-var Handlebars = require('./handlebars.runtime-v4.0.5.js');
-require('./sample.hbs.js');
+var Handlebars = require('./handlebars.runtime.js');
+require('./css.hbs.js');
 var bind = require('./bind');
 var utils = require('./utils');
 /*global pingpp*/
@@ -151,6 +151,15 @@ module.exports = {
   },
 
   success: function (callback) {
-    stash.successCallback = callback;
+    var htmlStr = Handlebars.templates.success();
+    var one_body = document.createElement('div');
+    one_body.id = 'p_one_frame';
+    one_body.innerHTML = htmlStr;
+    document.body.appendChild(one_body);
+
+    document.getElementById('p_one_goon')
+        .addEventListener('click', function () {
+          callback();
+        });
   }
 };

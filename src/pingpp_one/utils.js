@@ -3,7 +3,7 @@
  */
 
 var bind = require('./bind');
-var Handlebars = require('./handlebars.runtime-v4.0.5.js');
+var Handlebars = require('./handlebars.runtime.js');
 
 module.exports = {
 

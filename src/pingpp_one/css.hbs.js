@@ -1,5 +1,5 @@
 /*eslint-disable */
-var Handlebars = require('./handlebars.runtime-v4.0.5.js');
+var Handlebars = require('./handlebars.runtime.js');
 
 (function () {
     var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};

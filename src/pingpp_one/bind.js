@@ -4,8 +4,6 @@
 var stash = require('../stash');
 var utils = require('./utils');
 var commUtils = require('../utils');
-var Handlebars = require('./handlebars.runtime-v4.0.5.js');
-require('./sample.hbs.js');
 /*global pingpp*/
 module.exports = {
 
@@ -54,6 +52,7 @@ module.exports = {
       commUtils.request(stash.userData.charge_url,
           'POST', postData, function (res, code) {
             utils.hideLoading();
+            alert(code);
             if (code == 200) {
               _this.charge = res;
 
@@ -72,15 +71,15 @@ module.exports = {
                 return;
               }
               pingpp.createPayment(res, _this.callbackCharge);
+            } else {
+              utils.hideLoading();
+              utils.close();
+              stash.userCallback({
+                status: false,
+                msg: 'network error',
+                debug: stash.isDebugMode
+              });
             }
-          }, function (err) {
-            utils.hideLoading();
-            utils.close();
-            stash.userCallback({
-              status: false,
-              msg: 'network error: ' + err,
-              debug: stash.isDebugMode
-            });
           });
     });
 
@@ -115,6 +114,7 @@ module.exports = {
 
   callbackCharge: function (result, err) {
     var _this = this;
+    utils.close();
     if (result == 'fail') {
       stash.userCallback({
         status: false,
@@ -122,25 +122,21 @@ module.exports = {
         debug: stash.isDebugMode,
         chargeUrlOutput: _this.charge
       });
-      utils.close();
     } else if (result == 'cancel') {  // 微信公众账号支付取消支付
       stash.userCallback({
         status: false,
-        msg: err.msg,
+        msg: 'cancel',
         debug: stash.isDebugMode,
         chargeUrlOutput: _this.charge
       });
     } else if (result == 'success') { // 只有微信公众账号 wx_pub 支付成功的结果会在这里返回，其他的支付结果都会跳转到 extra 中对应的 URL。
-      var htmlStr = Handlebars.templates.success();
-      var one_body = document.createElement('div');
-      one_body.id = 'p_one_frame';
-      one_body.innerHTML = htmlStr;
-      document.body.appendChild(one_body);
-
-      document.getElementById('p_one_goon')
-          .addEventListener('click', function () {
-            stash.successCallback();
-          });
+      stash.userCallback({
+        status: true,
+        msg: result,
+        wxSuccess:true,
+        debug: stash.isDebugMode,
+        chargeUrlOutput: _this.charge
+      });
     }
   }
 };
