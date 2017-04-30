@@ -13,7 +13,7 @@ module.exports = {
   },
 
   initPuid: function() {
-    if (typeof window === 'undefined' || typeof localStorage === 'undefined') {
+    if (typeof window === 'undefined' || typeof localStorage === 'undefined' || localStorage === null) {
       return;
     }
     var puid = localStorage.getItem('pingpp_uid');
