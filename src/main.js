@@ -24,19 +24,19 @@ PingppSDK.prototype = {
 
     if (!hasOwn.call(payment_elements, 'id')) {
       callbacks.innerCallback('fail',
-          callbacks.error('invalid_charge', 'no_charge_id'));
+        callbacks.error('invalid_charge', 'no_charge_id'));
       return;
     }
     if (!hasOwn.call(payment_elements, 'channel')) {
       callbacks.innerCallback('fail',
-          callbacks.error('invalid_charge', 'no_channel'));
+        callbacks.error('invalid_charge', 'no_channel'));
       return;
     }
     if (hasOwn.call(payment_elements, 'app')) {
       if (typeof payment_elements.app === 'string') {
         stash.app_id = payment_elements.app;
       } else if (typeof payment_elements.app === 'object' &&
-          typeof payment_elements.app.id === 'string') {
+        typeof payment_elements.app.id === 'string') {
         stash.app_id = payment_elements.app.id;
       }
     }
@@ -48,30 +48,30 @@ PingppSDK.prototype = {
     var channel = payment_elements.channel;
     if (!hasOwn.call(payment_elements, 'credential')) {
       callbacks.innerCallback('fail',
-          callbacks.error('invalid_charge', 'no_credential'));
+        callbacks.error('invalid_charge', 'no_credential'));
       return;
     }
     if (!payment_elements.credential) {
       callbacks.innerCallback('fail',
-          callbacks.error('invalid_credential', 'credential_is_undefined'));
+        callbacks.error('invalid_credential', 'credential_is_undefined'));
       return;
     }
     if (!hasOwn.call(payment_elements.credential, channel)) {
       callbacks.innerCallback('fail',
-          callbacks.error('invalid_credential', 'credential_is_incorrect'));
+        callbacks.error('invalid_credential', 'credential_is_incorrect'));
       return;
     }
     if (!hasOwn.call(payment_elements, 'livemode')) {
       callbacks.innerCallback('fail',
-          callbacks.error('invalid_charge', 'no_livemode_field'));
+        callbacks.error('invalid_charge', 'no_livemode_field'));
       return;
     }
     var channelModule = mods.getChannelModule(channel);
     if (typeof channelModule === 'undefined') {
       console.error('channel module "' + channel + '" is undefined');
       callbacks.innerCallback('fail',
-          callbacks.error('invalid_channel',
-              'channel module "' + channel + '" is undefined')
+        callbacks.error('invalid_channel',
+          'channel module "' + channel + '" is undefined')
       );
       return;
     }

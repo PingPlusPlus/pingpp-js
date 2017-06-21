@@ -147,6 +147,14 @@ var utils = module.exports = {
     return ua.indexOf('micromessenger') !== -1;
   },
 
+  inAlipay: function () {
+    if (typeof navigator === 'undefined') {
+      return false;
+    }
+    var ua = navigator.userAgent.toLowerCase();
+    return ua.indexOf('alipayclient') !== -1;
+  },
+
   documentReady: function (fn) {
     if (typeof document === 'undefined') {
       fn();

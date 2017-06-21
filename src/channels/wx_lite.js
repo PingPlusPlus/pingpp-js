@@ -56,7 +56,7 @@ module.exports = {
   runTestMode: function (url) {
     wx.showModal({
       title: '提示',
-      content: '因 \"微信小程序\" 限制 域名的原因 暂不支持 模拟付款 请使用 livekey 获取 charge 进行支付'
+      content: '因 "微信小程序" 限制 域名的原因 暂不支持 模拟付款 请使用 livekey 获取 charge 进行支付'
     });
   }
   /* eslint-enable no-unused-vars */
