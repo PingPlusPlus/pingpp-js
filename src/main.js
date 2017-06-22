@@ -20,7 +20,6 @@ PingppSDK.prototype = {
       callbacks.userCallback = callback;
     }
 
-
     payment_elements.init(chargeJSON);
 
     if (!hasOwn.call(payment_elements, 'id')) {
