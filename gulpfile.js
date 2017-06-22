@@ -38,6 +38,12 @@ gulp.task('build', ['clean', 'modules'], function() {
   if (hasOwn.call(cmdOptions, 'name') && cmdOptions.name.length > 0) {
     releaseObjectName = cmdOptions.name;
   }
+
+  if(hasOwn.call(cmdOptions, 'one')) {
+    entries = entriesOne;
+    releaseObjectName = releaseObjectNameOne;
+  }
+
   var b = browserify({
     entries: entries,
     standalone: releaseObjectName,
@@ -52,36 +58,7 @@ gulp.task('build', ['clean', 'modules'], function() {
     }))
     .pipe(uglify({
       mangle: {
-        except: ['PingppSDK']
-      },
-      output: {
-        quote_style: 3
-      }
-    }))
-    .on('error', gutil.log)
-    .pipe(sourcemaps.write('./'))
-    .pipe(gulp.dest(distDir));
-});
-
-gulp.task('one', ['clean', 'modules'], function() {
-  if (hasOwn.call(cmdOptions, 'name') && cmdOptions.name.length > 0) {
-    releaseObjectName = cmdOptions.name;
-  }
-  var b = browserify({
-    entries: entriesOne,
-    standalone: releaseObjectNameOne,
-    debug: true
-  });
-
-  return b.bundle()
-    .pipe(source(destJsFile))
-    .pipe(buffer())
-    .pipe(sourcemaps.init({
-      loadMaps: true
-    }))
-    .pipe(uglify({
-      mangle: {
-        except: ['pingpp_one']
+        except: ['PingppSDK', 'pingpp_one']
       },
       output: {
         quote_style: 3
@@ -193,7 +170,7 @@ var modnames2text = function(modnames, baseDir) {
     modsContents.push(line);
   }
 
-  if(hasOwn.call(cmdOptions, 'one') && cmdOptions.one == 'true'){
+  if(hasOwn.call(cmdOptions, 'one')){
     modsContents.push('one: require(\'./pingpp_one/init\')');
   }
 

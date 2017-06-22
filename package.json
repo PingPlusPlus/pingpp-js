@@ -14,7 +14,9 @@
     "library",
     "browser"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "gulp-rename": "^1.2.2"
+  },
   "devDependencies": {
     "browserify": "^13.0.0",
     "del": "^2.2.0",
