@@ -7,7 +7,7 @@ var hasOwn = {}.hasOwnProperty;
 /*global WeixinJSBridge*/
 module.exports = {
 
-  PINGPP_NOTIFY_URL_BASE: 'https://api.pingxx.com/notify/charges/',
+  PINGPP_NOTIFY_URL_BASE: 'https://api.pingxx.com/notify',
 
   handleCharge: function(charge) {
     var credential = charge.credential[charge.channel];
@@ -69,7 +69,9 @@ module.exports = {
   runTestMode: function(charge) {
     var dopay = confirm('模拟付款？');
     if (dopay) {
-      utils.request(this.PINGPP_NOTIFY_URL_BASE + charge.id + '?livemode=false',
+      var path = (charge.or_id === null ? '' : '/orders/' + charge.or_id)
+          + '/charges/' + charge.id;
+      utils.request(this.PINGPP_NOTIFY_URL_BASE + path + '?livemode=false',
         'GET', null,
         function(data, status) {
           if (status >= 200 && status < 400 && data == 'success') {

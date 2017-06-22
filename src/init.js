@@ -27,7 +27,12 @@ module.exports = {
     }
     stash.puid = puid;
     if (!document.getElementById('p_analyse_iframe')) {
-      var iframe = document.createElement('iframe');
+      var iframe;
+      try {
+        iframe = document.createElement('iframe');
+      }catch(e){
+        iframe = document.createElement('<iframe name="ifr"></iframe>');
+      }
       iframe.id = 'p_analyse_iframe';
       iframe.src = this.SRC_URL + '/?puid=' + puid;
       iframe.style.display = 'none';

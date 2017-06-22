@@ -43,7 +43,7 @@ var utils = module.exports = {
    * @param function errorCallback  错误回调 (xhr, statusCode, error)
    */
   request: function (url, method, requestData,
-                     successCallback, errorCallback, headers) {
+    successCallback, errorCallback, headers) {
     if (typeof XMLHttpRequest === 'undefined') {
       console.log('Function XMLHttpRequest is undefined.');
       return;
@@ -72,12 +72,10 @@ var utils = module.exports = {
       xhr.send();
     }
     if (typeof successCallback == 'undefined') {
-      successCallback = function () {
-      };
+      successCallback = function () {};
     }
     if (typeof errorCallback == 'undefined') {
-      errorCallback = function () {
-      };
+      errorCallback = function () {};
     }
     xhr.onreadystatechange = function () {
       if (xhr.readyState == 4) {
@@ -162,7 +160,6 @@ var utils = module.exports = {
   },
 
   loadUrlJs: function (sid, jsurl, callback) {
-
     var nodeHead = document.getElementsByTagName('head')[0];
     var nodeScript = null;
     if (document.getElementById(sid) == null) {

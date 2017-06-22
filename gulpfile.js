@@ -14,9 +14,11 @@ var hasOwn = {}.hasOwnProperty;
 var scriptSrcFiles = 'src/**/*.js';
 var destJsFile = 'pingpp.js';
 var entries = ['./src/main.js'];
+var entriesOne = ['./src/pingpp_one/init.js'];
 var distDir = './dist/';
 var distFiles = [distDir + '**/*.js', distDir + '**/*.js.map'];
 var releaseObjectName = 'pingpp';
+var releaseObjectNameOne = 'pingpp_one';
 var channelsDir = './channels/';
 var channelsDirPath = __dirname + '/src/channels/';
 var replaceChannelsPattern = '<<REPLACE-CHANNELS>>';
@@ -51,6 +53,35 @@ gulp.task('build', ['clean', 'modules'], function() {
     .pipe(uglify({
       mangle: {
         except: ['PingppSDK']
+      },
+      output: {
+        quote_style: 3
+      }
+    }))
+    .on('error', gutil.log)
+    .pipe(sourcemaps.write('./'))
+    .pipe(gulp.dest(distDir));
+});
+
+gulp.task('one', ['clean', 'modules'], function() {
+  if (hasOwn.call(cmdOptions, 'name') && cmdOptions.name.length > 0) {
+    releaseObjectName = cmdOptions.name;
+  }
+  var b = browserify({
+    entries: entriesOne,
+    standalone: releaseObjectNameOne,
+    debug: true
+  });
+
+  return b.bundle()
+    .pipe(source(destJsFile))
+    .pipe(buffer())
+    .pipe(sourcemaps.init({
+      loadMaps: true
+    }))
+    .pipe(uglify({
+      mangle: {
+        except: ['pingpp_one']
       },
       output: {
         quote_style: 3

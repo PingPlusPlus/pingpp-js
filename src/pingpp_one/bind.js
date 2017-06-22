@@ -52,7 +52,6 @@ module.exports = {
       commUtils.request(stash.userData.charge_url,
           'POST', postData, function (res, code) {
             utils.hideLoading();
-            alert(code);
             if (code == 200) {
               _this.charge = res;
 

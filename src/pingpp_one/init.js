@@ -8,8 +8,10 @@ var Handlebars = require('./handlebars.runtime.js');
 require('./css.hbs.js');
 var bind = require('./bind');
 var utils = require('./utils');
+var pingpp = require('../main');
 /*global pingpp*/
-module.exports = {
+
+var pingpp_one = {
   init: function (opt, callback) {
 
     utils.hideLoading();
@@ -163,3 +165,5 @@ module.exports = {
         });
   }
 };
+
+module.exports =  pingpp_one;
