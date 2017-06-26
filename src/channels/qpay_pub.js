@@ -1,6 +1,3 @@
-/**
- * Created by dong on 2016/11/9.
- */
 var callbacks = require('../callbacks');
 var utils = require('../utils');
 var stash = require('../stash');
@@ -8,7 +5,7 @@ var hasOwn = {}.hasOwnProperty;
 
 /*global mqq*/
 module.exports = {
-  SRC_URL: 'http://pub.idqqimg.com/qqmobile/qqapi.js?_bid=152',
+  SRC_URL: 'https://open.mobile.qq.com/sdk/qqapi.js?_bid=152',
   ID: 'mqq_api',
 
   handleCharge: function (charge) {
@@ -16,7 +13,7 @@ module.exports = {
 
     if (!hasOwn.call(credential, 'token_id')) {
       callbacks.innerCallback('fail',
-          callbacks.error('invalid_credential', 'missing_token_id'));
+        callbacks.error('invalid_credential', 'missing_token_id'));
       return;
     }
     stash.tokenId = credential.token_id;
@@ -26,15 +23,24 @@ module.exports = {
   callpay: function () {
     if (typeof mqq != 'undefined') {
       if (mqq.QQVersion == 0) {
-        callbacks.innerCallback('fail', 'Not in the QQ client');
+        callbacks.innerCallback('fail',
+          callbacks.error('Not in the QQ client'));
         delete stash.tokenId;
         return;
       }
       mqq.tenpay.pay({
         tokenId: stash.tokenId
-      }, callbacks.userCallback);
+      }, function (result) {
+        if (result.resultCode == 0) {
+          callbacks.innerCallback('success');
+        } else {
+          callbacks.innerCallback('fail',
+            callbacks.error(result.retmsg));
+        }
+      });
     } else {
-      callbacks.innerCallback('fail', 'network_err');
+      callbacks.innerCallback('fail',
+        callbacks.error('network_err'));
     }
     delete stash.tokenId;
   }

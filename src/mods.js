@@ -9,6 +9,7 @@ mods.channels = {
   cp_b2b: require('./channels/cp_b2b'),
   fqlpay_qr: require('./channels/fqlpay_qr'),
   fqlpay_wap: require('./channels/fqlpay_wap'),
+  isv_wap: require('./channels/isv_wap'),
   jdpay_wap: require('./channels/jdpay_wap'),
   qpay_pub: require('./channels/qpay_pub'),
   upacp_pc: require('./channels/upacp_pc'),
