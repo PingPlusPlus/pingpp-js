@@ -23,7 +23,7 @@ module.exports = {
         charge = JSON.parse(charge_or_order);
       } catch (err) {
         callbacks.innerCallback('fail',
-            callbacks.error('json_decode_fail', err));
+          callbacks.error('json_decode_fail', err));
         return;
       }
     } else {

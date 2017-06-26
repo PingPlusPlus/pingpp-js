@@ -13,7 +13,10 @@ module.exports = {
       baseURL = credential.channel_url;
     }
     if (!hasOwn.call(credential, '_input_charset')) {
-      credential._input_charset = 'utf-8';
+      if(hasOwn.call(credential, 'service')
+        && credential.service === 'alipay.wap.create.direct.pay.by.user') {
+        credential._input_charset = 'utf-8';
+      }
     }
     var query = utils.stringifyData(credential, channel, true);
     utils.redirectTo(baseURL + '?' + query);
