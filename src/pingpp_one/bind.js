@@ -50,36 +50,36 @@ module.exports = {
       }
 
       commUtils.request(stash.userData.charge_url,
-          'POST', postData, function (res, code) {
-            utils.hideLoading();
-            if (code == 200) {
-              _this.charge = res;
+        'POST', postData, function (res, code) {
+          utils.hideLoading();
+          if (code == 200) {
+            _this.charge = res;
 
-              if (stash.isDebugMode) {//debug模式下暂停，调用resume之后继续
-                _this.buttonClickable = true;
+            if (stash.isDebugMode) {//debug模式下暂停，调用resume之后继续
+              _this.buttonClickable = true;
 
-                stash.charge = res;
-                stash.channel = channel;
+              stash.charge = res;
+              stash.channel = channel;
 
-                stash.userCallback({
-                  status: true,
-                  msg: 'charge success',
-                  debug: stash.isDebugMode,
-                  chargeUrlOutput: res
-                });
-                return;
-              }
-              pingpp.createPayment(res, _this.callbackCharge);
-            } else {
-              utils.hideLoading();
-              utils.close();
               stash.userCallback({
-                status: false,
-                msg: 'network error',
-                debug: stash.isDebugMode
+                status: true,
+                msg: 'charge success',
+                debug: stash.isDebugMode,
+                chargeUrlOutput: res
               });
+              return;
             }
-          });
+            pingpp.createPayment(res, _this.callbackCharge);
+          } else {
+            utils.hideLoading();
+            utils.close();
+            stash.userCallback({
+              status: false,
+              msg: 'network error',
+              debug: stash.isDebugMode
+            });
+          }
+        });
     });
 
     //点mask的时候收起来
@@ -132,7 +132,7 @@ module.exports = {
       stash.userCallback({
         status: true,
         msg: result,
-        wxSuccess:true,
+        wxSuccess: true,
         debug: stash.isDebugMode,
         chargeUrlOutput: _this.charge
       });

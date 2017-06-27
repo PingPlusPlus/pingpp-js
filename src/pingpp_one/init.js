@@ -131,8 +131,18 @@ var pingpp_one = {
       }
     }
     _channel.client = navigator.userAgent.toLowerCase().match('iphone') ?
-        '' : ' p_one_default';
-    var html = Handlebars.templates.sample(_channel);
+      '' : ' p_one_default';
+    _channel.channel = channel;
+
+    Handlebars.registerHelper('compare', function (left, right, options) {
+      if (left == right) {
+        return options.fn(this);
+      } else {
+        return options.inverse(this);
+      }
+    });
+
+    var html = Handlebars.templates.channel(_channel);
     utils.createFrame(html);
 
     setTimeout(function () {
@@ -159,11 +169,16 @@ var pingpp_one = {
     document.body.appendChild(one_body);
 
     document.getElementById('p_one_goon')
-        .addEventListener('click', function () {
-          callback();
-        });
+      .addEventListener('click', function () {
+        callback();
+      });
   }
 };
 
 window.pingpp_one = pingpp_one;
-module.exports =  pingpp_one;
+comUtil.documentReady(function () {
+  var e = document.createEvent('Event');
+  e.initEvent('pingpp_one_ready', true, true);
+  document.dispatchEvent(e);
+});
+module.exports = pingpp_one;

@@ -69,7 +69,7 @@ PingppSDK.prototype = {
     }
     var channelModule = mods.getChannelModule(channel);
     if (typeof channelModule === 'undefined') {
-      console.error('channel module \"' + channel + '\" is undefined');
+      console.error('channel module "' + channel + '" is undefined');
       callbacks.innerCallback('fail',
         callbacks.error('invalid_channel',
           'channel module "' + channel + '" is undefined')
