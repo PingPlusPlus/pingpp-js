@@ -164,7 +164,15 @@ var pingpp_one = {
     pingpp.createPayment(stash.charge, bind.callbackCharge);
   },
 
-  success: function (callback) {
+  success: function (callback, continueCallback) {
+    if(typeof continueCallback != 'function'){
+      callback({
+        status:false,
+        msg:'参数类型必须为 function'
+      });
+      return;
+    }
+
     var htmlStr = Handlebars.templates.success();
     var one_body = document.createElement('div');
     one_body.id = 'p_one_frame';
@@ -173,7 +181,7 @@ var pingpp_one = {
 
     document.getElementById('p_one_goon')
       .addEventListener('click', function () {
-        callback();
+        continueCallback();
       });
   }
 };
