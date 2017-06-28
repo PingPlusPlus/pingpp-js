@@ -188,8 +188,10 @@ var pingpp_one = {
 
 window.pingpp_one = pingpp_one;
 comUtil.documentReady(function () {
-  var e = document.createEvent('Event');
-  e.initEvent('pingpp_one_ready', true, true);
-  document.dispatchEvent(e);
+  setTimeout(function () {
+    var e = document.createEvent('Event');
+    e.initEvent('pingpp_one_ready', true, true);
+    document.dispatchEvent(e);
+  }, 0);
 });
 module.exports = pingpp_one;
