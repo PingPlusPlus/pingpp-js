@@ -4,7 +4,8 @@
 var stash = require('../stash');
 var utils = require('./utils');
 var commUtils = require('../utils');
-/*global pingpp*/
+var pingpp = require('../main');
+
 module.exports = {
 
   buttonClickable: true,
