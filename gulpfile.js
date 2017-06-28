@@ -51,10 +51,11 @@ gulp.task('build', ['clean', 'modules'], function() {
     }))
     .pipe(uglify({
       mangle: {
-        except: ['PingppSDK', 'pingpp']
+        reserved: ['PingppSDK']
       },
       output: {
-        quote_style: 3
+        quote_style: 3,
+        max_line_len: 32000
       }
     }))
     .on('error', gutil.log)
@@ -147,6 +148,10 @@ var makeLibModulesContent = function() {
     cmdOptions.wx_jssdk) {
     extranames.push('wx_jssdk');
   }
+  if (hasOwn.call(cmdOptions, 'one')) {
+    extranames.push(['one', './pingpp_one/init']);
+  }
+
   return {
     replacement: modnames2text(extranames, extraBaseDir)
   };
@@ -156,15 +161,23 @@ var modnames2text = function(modnames, baseDir) {
   if (modnames.length === 0) {
     return '';
   }
+  if (baseDir === undefined || baseDir === null) {
+    baseDir = '';
+  }
   var modsContents = [];
   for (var i = 0; i < modnames.length; i++) {
-    var line = modnames[i] +
-      ': require(\'' + baseDir + modnames[i] + '\')';
+    var modname;
+    var path;
+    if (typeof modnames[i] === 'string') {
+      modname = modnames[i];
+      path = baseDir + modname;
+    } else if (Array.isArray(modnames[i])) {
+      modname = modnames[i][0];
+      path = modnames[i][1];
+    }
+    var line = modname +
+      ': require(\'' + path + '\')';
     modsContents.push(line);
-  }
-
-  if(hasOwn.call(cmdOptions, 'one')){
-    modsContents.push('one: require(\'./pingpp_one/init\')');
   }
 
   return '  ' + _.join(modsContents, ',\n  ');

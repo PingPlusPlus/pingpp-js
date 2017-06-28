@@ -17,8 +17,7 @@ mods.channels = {
   wx_lite: require('./channels/wx_lite'),
   wx_pub: require('./channels/wx_pub'),
   wx_wap: require('./channels/wx_wap'),
-  yeepay_wap: require('./channels/yeepay_wap'),
-  one: require('./pingpp_one/init')
+  yeepay_wap: require('./channels/yeepay_wap')
 };
 
 mods.extras = {

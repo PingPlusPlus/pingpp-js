@@ -14,17 +14,15 @@
     "library",
     "browser"
   ],
-  "dependencies": {
-    "gulp-rename": "^1.2.2"
-  },
+  "dependencies": {},
   "devDependencies": {
-    "browserify": "^13.0.0",
-    "del": "^2.2.0",
+    "browserify": "^13.3.0",
+    "del": "^3.0.0",
     "gulp": "^3.9.1",
-    "gulp-sourcemaps": "^2.0.0-alpha",
-    "gulp-uglify": "^1.5.3",
-    "gulp-util": "^3.0.7",
-    "lodash": "^4.12.0",
+    "gulp-sourcemaps": "^2.6.0",
+    "gulp-uglify": "^3.0.0",
+    "gulp-util": "^3.0.8",
+    "lodash": "^4.17.4",
     "minimist": "^1.2.0",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"

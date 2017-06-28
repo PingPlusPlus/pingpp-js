@@ -8,9 +8,12 @@ var Handlebars = require('./handlebars.runtime.js');
 require('./css.hbs.js');
 var bind = require('./bind');
 var utils = require('./utils');
-/*global pingpp*/
+var pingpp = require('../main');
 
 var pingpp_one = {
+
+  version: '2.0',
+
   init: function (opt, callback) {
 
     utils.hideLoading();
