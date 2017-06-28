@@ -29,7 +29,7 @@ var pingpp_one = {
     if (typeof opt.app_id == 'undefined') {
       callback({
         status: false,
-        msg: '缺少参数app_id',
+        msg: '缺少参数 app_id',
         debug: stash.isDebugMode
       });
       return;
