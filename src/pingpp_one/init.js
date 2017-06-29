@@ -173,16 +173,17 @@ var pingpp_one = {
       return;
     }
 
-    var htmlStr = Handlebars.templates.success();
-    var one_body = document.createElement('div');
-    one_body.id = 'p_one_frame';
-    one_body.innerHTML = htmlStr;
-    document.body.appendChild(one_body);
-
-    document.getElementById('p_one_goon')
-      .addEventListener('click', function () {
-        continueCallback();
-      });
+    comUtil.documentReady(function(){
+      var htmlStr = Handlebars.templates.success();
+      var one_body = document.createElement('div');
+      one_body.id = 'p_one_frame';
+      one_body.innerHTML = htmlStr;
+      document.body.appendChild(one_body);
+      document.getElementById('p_one_goon')
+        .addEventListener('click', function () {
+          continueCallback();
+        });
+    });
   }
 };
 
