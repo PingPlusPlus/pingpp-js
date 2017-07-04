@@ -45,7 +45,7 @@ PingppSDK.prototype.createPayment = function (
     }
   }
   dc.report({
-    type: 'pure_sdk_click',
+    type: stash.type || 'pure_sdk_click',
     channel: payment_elements.channel,
     ch_id: payment_elements.id
   });
