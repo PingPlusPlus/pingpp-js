@@ -9,6 +9,7 @@
     5. 微信小程序支付（wx_lite）
     6. 易宝手机网页支付（yeepay_wap）
     7. 京东手机网页支付（jdpay_wap）
+    8. 招行一网通支付（cmb_wallet）
     
 - PC 网页支付
     1. 支付宝电脑网站支付 (alipay_pc_direct) 
@@ -16,6 +17,7 @@
     3. 银联企业网银支付 (cp_b2b) 
     
 - 微信公众账号支付(wx_pub)
+- 线下扫码支付(isv_wap)
 
 ## 如何构建
 [dist](/dist) 目录下提供了已经构建好的 SDK，使用的命令是 `gulp build --alipay_in_weixin`。
