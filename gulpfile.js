@@ -50,10 +50,11 @@ gulp.task('build', ['clean', 'modules'], function() {
     }))
     .pipe(uglify({
       mangle: {
-        except: ['PingppSDK']
+        reserved: ['PingppSDK']
       },
       output: {
-        quote_style: 3
+        quote_style: 3,
+        max_line_len: 32000
       }
     }))
     .on('error', gutil.log)

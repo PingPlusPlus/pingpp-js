@@ -6,6 +6,7 @@ mods.channels = {
   alipay_pc_direct: require('./channels/alipay_pc_direct'),
   alipay_wap: require('./channels/alipay_wap'),
   bfb_wap: require('./channels/bfb_wap'),
+  cmb_wallet: require('./channels/cmb_wallet'),
   cp_b2b: require('./channels/cp_b2b'),
   fqlpay_qr: require('./channels/fqlpay_qr'),
   fqlpay_wap: require('./channels/fqlpay_wap'),

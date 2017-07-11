@@ -14,7 +14,7 @@ module.exports = {
       delete credential.ChannelUrl;
     }
 
-    if(hasOwn.call(credential, 'channelVersion')) {
+    if (hasOwn.call(credential, 'channelVersion')) {
       delete credential.channelVersion;
     }
 
