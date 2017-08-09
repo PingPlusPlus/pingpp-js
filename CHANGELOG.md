@@ -1,5 +1,8 @@
 # ChangeLog
 
+### 2.1.12 (2017-08-09)
+- 修复：测试模式下 wx_pub 中 notify url 报错问题
+
 ### 2.1.11 (2017-07-14)
 - 修复：修复alipay_pc_direct兼容性
 
