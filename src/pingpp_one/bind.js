@@ -5,6 +5,7 @@ var stash = require('../stash');
 var utils = require('./utils');
 var commUtils = require('../utils');
 var pingpp = require('../main');
+var collection = require('../collection');
 
 module.exports = {
 
@@ -70,10 +71,12 @@ module.exports = {
               });
               return;
             }
+            stash.type = 'charge_success';
             pingpp.createPayment(res, _this.callbackCharge);
           } else {
             utils.hideLoading();
             utils.close();
+            collection.report({type:'charge_fail',channel:channel});
             stash.userCallback({
               status: false,
               msg: 'network error',
@@ -81,6 +84,10 @@ module.exports = {
             });
           }
         });
+
+      if (!stash.isDebugMode) {
+        collection.report({type:'click',channel:channel});
+      }
     });
 
     //点mask的时候收起来
