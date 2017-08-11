@@ -14,7 +14,7 @@ module.exports = {
     }
     if (!hasOwn.call(credential, '_input_charset')) {
       if(hasOwn.call(credential, 'service')
-        && credential.service === 'alipay.wap.create.direct.pay.by.user') {
+        && credential.service === 'create_direct_pay_by_user') {
         credential._input_charset = 'utf-8';
       }
     }

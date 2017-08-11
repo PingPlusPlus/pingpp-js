@@ -7,7 +7,7 @@ var hasOwn = {}.hasOwnProperty;
 /*global WeixinJSBridge*/
 module.exports = {
 
-  PINGPP_NOTIFY_URL_BASE: 'https://api.pingxx.com/notify',
+  PINGPP_NOTIFY_URL_BASE: 'https://notify.pingxx.com/notify',
 
   handleCharge: function(charge) {
     var credential = charge.credential[charge.channel];
