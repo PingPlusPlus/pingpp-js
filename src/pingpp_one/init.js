@@ -12,7 +12,7 @@ var pingpp = require('../main');
 
 var pingpp_one = {
 
-  version: '2.0',
+  version: '2.0.1',
 
   init: function (opt, callback) {
 
