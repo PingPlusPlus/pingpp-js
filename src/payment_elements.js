@@ -47,6 +47,8 @@ module.exports = {
       } else if(hasOwn.call(charge, 'charges') && charge.charges != null) {
         charge = charge.charges.data[0];
       }
+    } else if(hasOwn.call(charge, 'object') && charge.object == 'recharge') {
+      charge = charge.charge;
     }
 
     for (var key in this) {
