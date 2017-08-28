@@ -36,13 +36,17 @@ module.exports = {
     }
 
     if (hasOwn.call(charge, 'object') && charge.object == 'order') {
-      charge.or_id = charge.id;
-      charge.id = charge.charge;
-      charge.order_no = charge.merchant_order_no;
-      var charge_essentials = charge.charge_essentials;
-      charge.channel = charge_essentials.channel;
-      charge.credential = charge_essentials.credential;
-      charge.extra = charge_essentials.extra;
+      if(hasOwn.call(charge, 'charge') && charge.charge != null) {
+        charge.or_id = charge.id;
+        charge.id = charge.charge;
+        charge.order_no = charge.merchant_order_no;
+        var charge_essentials = charge.charge_essentials;
+        charge.channel = charge_essentials.channel;
+        charge.credential = charge_essentials.credential;
+        charge.extra = charge_essentials.extra;
+      } else if(hasOwn.call(charge, 'charges') && charge.charges != null) {
+        charge = charge.charges.data[0];
+      }
     }
 
     for (var key in this) {
