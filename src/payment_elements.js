@@ -47,7 +47,7 @@ module.exports = {
       } else if(hasOwn.call(charge_essentials, 'id') && charge_essentials.id != null) {
         charge.id = charge_essentials.id;
       } else if(hasOwn.call(charge, 'charges')) {
-        for(var i in charge.charges.data){
+        for(var i = 0; i < charge.charges.data.length; i++){
           if(charge.charges.data[i].channel === charge_essentials.channel) {
             charge.id = charge.charges.data[i].id;
             break;
