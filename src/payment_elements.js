@@ -42,9 +42,9 @@ module.exports = {
       charge.channel = charge_essentials.channel;
       charge.credential = charge_essentials.credential;
       charge.extra = charge_essentials.extra;
-      if(hasOwn.call(charge, 'charge')) {
+      if(hasOwn.call(charge, 'charge') && charge.charge != null) {
         charge.id = charge.charge;
-      } else if(hasOwn.call(charge_essentials, 'id')) {
+      } else if(hasOwn.call(charge_essentials, 'id') && charge_essentials.id != null) {
         charge.id = charge_essentials.id;
       } else if(hasOwn.call(charge, 'charges')) {
         for(var i in charge.charges.data){
