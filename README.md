@@ -17,6 +17,8 @@
     3. 银联企业网银支付 (cp_b2b) 
     
 - 微信公众账号支付(wx_pub)
+- QQ 公众号支付 (qpay_pub)
+- 支付宝口碑 (alipay_qr)
 - 线下扫码支付(isv_wap)
 
 ## 如何构建
@@ -118,11 +120,12 @@ gulp build --channels=wx_lite
 ``` javascript
 pingpp.createPayment(charge, function(result, err){
   if (result == "success") {
-    // 只有微信公众账号 wx_pub 支付成功的结果会在这里返回，其他的支付结果都会跳转到 extra 中对应的 URL。
+    // 只有微信公众账号 (wx_pub)、QQ 公众号 (qpay_pub)、支付宝口碑 (alipay_qr)
+    // 支付成功的结果会在这里返回，其他的支付结果都会跳转到 extra 中对应的 URL。
   } else if (result == "fail") {
-    // charge 不正确或者微信公众账号支付失败时会在此处返回
+    // charge 不正确或者微信公众账号/QQ 公众号/支付宝口碑支付失败时会在此处返回
   } else if (result == "cancel") {
-    // 微信公众账号支付取消支付
+    // 微信公众账号、QQ 公众号、支付宝口碑支付取消支付
   }
 });
 ```
