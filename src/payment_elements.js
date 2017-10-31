@@ -37,12 +37,26 @@ module.exports = {
 
     if (hasOwn.call(charge, 'object') && charge.object == 'order') {
       charge.or_id = charge.id;
-      charge.id = charge.charge;
       charge.order_no = charge.merchant_order_no;
       var charge_essentials = charge.charge_essentials;
       charge.channel = charge_essentials.channel;
       charge.credential = charge_essentials.credential;
       charge.extra = charge_essentials.extra;
+      if(hasOwn.call(charge, 'charge') && charge.charge != null) {
+        charge.id = charge.charge;
+      } else if(hasOwn.call(charge_essentials, 'id')
+        && charge_essentials.id != null) {
+        charge.id = charge_essentials.id;
+      } else if(hasOwn.call(charge, 'charges')) {
+        for(var i = 0; i < charge.charges.data.length; i++){
+          if(charge.charges.data[i].channel === charge_essentials.channel) {
+            charge.id = charge.charges.data[i].id;
+            break;
+          }
+        }
+      }
+    } else if(hasOwn.call(charge, 'object') && charge.object == 'recharge') {
+      charge = charge.charge;
     }
 
     for (var key in this) {
