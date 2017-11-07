@@ -11,6 +11,7 @@ var utils = require('./utils');
 var pingpp = require('../main');
 
 var pingpp_one = {
+  AD_URL: 'http://192.168.24.6/ads',
 
   version: '2.0.1',
 
@@ -158,6 +159,20 @@ var pingpp_one = {
         bind.init();
       }, 700);
     }, 0);
+
+    comUtil.request(this.AD_URL, 'GET', null, function(res, status) {
+      res = JSON.parse(res);
+      var p_one_channelList = document.getElementById('p_one_channelList');
+      var p_ads_btn = document.getElementById('p_ads_btn');
+      if(!p_ads_btn) {
+        var div = document.createElement('div');
+        div.id = 'p_ads_btn';
+        res.client = _channel.client;
+        var html = Handlebars.templates.ads(res);
+        div.innerHTML = html;
+        p_one_channelList.appendChild(div);
+      }
+    });
   },
 
   resume: function () {
@@ -165,6 +180,7 @@ var pingpp_one = {
   },
 
   success: function (callback, continueCallback) {
+    var _this = this;
     if(typeof continueCallback != 'function'){
       callback({
         status:false,
@@ -174,15 +190,18 @@ var pingpp_one = {
     }
 
     comUtil.documentReady(function(){
-      var htmlStr = Handlebars.templates.success();
-      var one_body = document.createElement('div');
-      one_body.id = 'p_one_frame';
-      one_body.innerHTML = htmlStr;
-      document.body.appendChild(one_body);
-      document.getElementById('p_one_goon')
-        .addEventListener('click', function () {
-          continueCallback();
-        });
+      comUtil.request(_this.AD_URL, 'GET', null, function(res, status) {
+        console.log(res);
+        var htmlStr = Handlebars.templates.success(JSON.parse(res));
+        var one_body = document.createElement('div');
+        one_body.id = 'p_one_frame';
+        one_body.innerHTML = htmlStr;
+        document.body.appendChild(one_body);
+        document.getElementById('p_one_goon')
+          .addEventListener('click', function () {
+            continueCallback();
+          });
+      });
     });
   }
 };
