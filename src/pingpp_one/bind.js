@@ -24,6 +24,7 @@ module.exports = {
         return;
       }
 
+      utils.showLoading();
       _this.buttonClickable = false;
       var target = e.target;
       var channel = target.getAttribute('p_one_channel');
@@ -34,13 +35,6 @@ module.exports = {
       if (channel == null) {
         channel = target.parentNode.parentNode.getAttribute('p_one_channel');
       }
-
-      if(channel == null) {
-        e.returnValue = true;
-        _this.buttonClickable = true;
-        return;
-      }
-      utils.showLoading();
 
       var postData = {};
       postData.channel = channel;
@@ -62,6 +56,12 @@ module.exports = {
           utils.hideLoading();
           if (code == 200) {
             _this.charge = res;
+
+            try{
+              var json = JSON.parse(res);
+              localStorage.setItem('pingpp_app_id', json.app);
+              localStorage.setItem('pingpp_ch_id', json.id);
+            } catch (e){}
 
             if (stash.isDebugMode) {//debug模式下暂停，调用resume之后继续
               _this.buttonClickable = true;

@@ -11,9 +11,9 @@ var utils = require('./utils');
 var pingpp = require('../main');
 
 var pingpp_one = {
-  AD_URL: 'http://192.168.24.6/ads',
+  AD_URL: 'https://one.pingxx.com/v1/ads',
 
-  version: '2.0.1',
+  version: '2.0.2',
 
   init: function (opt, callback) {
 
@@ -159,20 +159,6 @@ var pingpp_one = {
         bind.init();
       }, 700);
     }, 0);
-
-    comUtil.request(this.AD_URL, 'GET', null, function(res, status) {
-      res = JSON.parse(res);
-      var p_one_channelList = document.getElementById('p_one_channelList');
-      var p_ads_btn = document.getElementById('p_ads_btn');
-      if(!p_ads_btn) {
-        var div = document.createElement('div');
-        div.id = 'p_ads_btn';
-        res.client = _channel.client;
-        var html = Handlebars.templates.ads(res);
-        div.innerHTML = html;
-        p_one_channelList.appendChild(div);
-      }
-    });
   },
 
   resume: function () {
@@ -190,8 +176,26 @@ var pingpp_one = {
     }
 
     comUtil.documentReady(function(){
-      comUtil.request(_this.AD_URL, 'GET', null, function(res, status) {
-        console.log(res);
+      try {
+        stash.app_id = localStorage.getItem('pingpp_app_id');
+        stash.ch_id = localStorage.getItem('pingpp_ch_id');
+      } catch (e) {}
+
+      if(!stash.app_id && ('undefined' != typeof pingpp_app_id)){
+        stash.app_id = pingpp_app_id;
+      }
+      if(!stash.ch_id && ('undefined' != typeof pingpp_ch_id)) {
+        stash.ch_id = pingpp_ch_id;
+      }
+
+      comUtil.request(_this.AD_URL, 'GET', {app_id: stash.app_id, ch_id: stash.ch_id}, function (res, status) {
+        Handlebars.registerHelper('position', function (left, right, options) {
+          if (left == right) {
+            return options.inverse(this);
+          } else {
+            return options.fn(this);
+          }
+        });
         var htmlStr = Handlebars.templates.success(JSON.parse(res));
         var one_body = document.createElement('div');
         one_body.id = 'p_one_frame';
