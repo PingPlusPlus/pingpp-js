@@ -188,7 +188,7 @@ var pingpp_one = {
         stash.ch_id = pingpp_ch_id;
       }
 
-      comUtil.request(_this.AD_URL, 'GET', {app_id: stash.app_id, ch_id: stash.ch_id}, function (res, status) {
+      comUtil.request(_this.AD_URL, 'GET', {app: stash.app_id, charge: stash.ch_id}, function (res, status) {
         Handlebars.registerHelper('position', function (left, right, options) {
           if (left == right) {
             return options.inverse(this);
