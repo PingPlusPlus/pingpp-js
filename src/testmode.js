@@ -25,6 +25,6 @@ module.exports = {
     if (hasOwn.call(charge, 'extra')) {
       params.extra = encodeURIComponent(JSON.stringify(charge.extra));
     }
-    utils.redirectTo(this.PINGPP_MOCK_URL + '?' + utils.stringifyData(params));
+    utils.redirectTo(this.PINGPP_MOCK_URL + '?' + utils.stringifyData(params), charge.channel);
   }
 };

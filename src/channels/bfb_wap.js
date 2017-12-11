@@ -14,6 +14,6 @@ module.exports = {
       return;
     }
     utils.redirectTo(credential.url + '?' +
-      utils.stringifyData(credential, channel));
+      utils.stringifyData(credential, channel), channel);
   }
 };

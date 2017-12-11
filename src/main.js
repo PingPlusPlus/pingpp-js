@@ -95,6 +95,22 @@ PingppSDK.prototype = {
 
   setAPURL: function (url) {
     stash.APURL = url;
+  },
+
+  setUrlReturnCallback: function (callback, channels) {
+    if (typeof callback === 'function') {
+      callbacks.urlReturnCallback = callback;
+    } else {
+      throw 'callback need to be a function';
+    }
+
+    if (typeof channels !== 'undefined') {
+      if (Array.isArray(channels)) {
+        callbacks.urlReturnChannels = channels;
+      } else {
+        throw 'channels need to be an array';
+      }
+    }
   }
 };
 

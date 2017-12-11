@@ -25,6 +25,6 @@ module.exports = {
       baseURL = this.YEEPAY_WAP_URL;
     }
     utils.redirectTo(baseURL + '?' +
-      utils.stringifyData(credential, channel, true));
+      utils.stringifyData(credential, channel, true), charge.channel);
   }
 };

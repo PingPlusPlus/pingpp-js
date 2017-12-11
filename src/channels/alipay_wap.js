@@ -30,7 +30,7 @@ module.exports = {
     if (utils.inWeixin() && typeof ap !== 'undefined') {
       ap.pay(targetURL);
     } else {
-      utils.redirectTo(targetURL);
+      utils.redirectTo(targetURL, channel);
     }
   }
 };
