@@ -11,7 +11,7 @@ var utils = require('./utils');
 var pingpp = require('../main');
 
 var pingpp_one = {
-  AD_URL: 'https://one.pingxx.com/v1/ads',
+  AD_URL: 'https://one.pingxx.com/v1/ad',
 
   version: '2.0.2',
 
@@ -167,6 +167,7 @@ var pingpp_one = {
 
   success: function (callback, continueCallback) {
     var _this = this;
+    window.ShitudtAdFinish = continueCallback;
     if(typeof continueCallback != 'function'){
       callback({
         status:false,
@@ -179,6 +180,7 @@ var pingpp_one = {
       try {
         stash.app_id = localStorage.getItem('pingpp_app_id');
         stash.ch_id = localStorage.getItem('pingpp_ch_id');
+        stash.amount = localStorage.getItem('pingpp_amount');
       } catch (e) {}
 
       if(!stash.app_id && ('undefined' != typeof pingpp_app_id)){
@@ -187,8 +189,22 @@ var pingpp_one = {
       if(!stash.ch_id && ('undefined' != typeof pingpp_ch_id)) {
         stash.ch_id = pingpp_ch_id;
       }
+      if(!stash.amount && ('undefined' != typeof pingpp_amount)) {
+        stash.amount = pingpp_amount;
+      }
 
-      comUtil.request(_this.AD_URL, 'GET', {app: stash.app_id, charge: stash.ch_id}, function (res, status) {
+      comUtil.request(_this.AD_URL, 'GET', {app: stash.app_id, charge: stash.ch_id, amount:stash.amount}, function (res, status) {
+        var data = {};
+        try {
+          var data = JSON.parse(res);
+          if (data.result == 'success' && data.type == 'html') {
+            document.open();
+            document.write(data.content);
+            document.close();
+            return;
+          }
+        } catch (e){}
+
         Handlebars.registerHelper('position', function (left, right, options) {
           if (left == right) {
             return options.inverse(this);
@@ -196,7 +212,7 @@ var pingpp_one = {
             return options.fn(this);
           }
         });
-        var htmlStr = Handlebars.templates.success(JSON.parse(res));
+        var htmlStr = Handlebars.templates.success(data.content);
         var one_body = document.createElement('div');
         one_body.id = 'p_one_frame';
         one_body.innerHTML = htmlStr;

@@ -61,6 +61,7 @@ module.exports = {
               var json = JSON.parse(res);
               localStorage.setItem('pingpp_app_id', json.app);
               localStorage.setItem('pingpp_ch_id', json.id);
+              localStorage.setItem('pingpp_amount', json.amount);
             } catch (e){}
 
             if (stash.isDebugMode) {//debug模式下暂停，调用resume之后继续
