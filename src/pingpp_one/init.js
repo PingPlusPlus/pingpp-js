@@ -181,6 +181,8 @@ var pingpp_one = {
         stash.app_id = localStorage.getItem('pingpp_app_id');
         stash.ch_id = localStorage.getItem('pingpp_ch_id');
         stash.amount = localStorage.getItem('pingpp_amount');
+        stash.subject = localStorage.getItem('pingpp_subject');
+        stash.channel = localStorage.getItem('pingpp_channel');
       } catch (e) {}
 
       if(!stash.app_id && ('undefined' != typeof pingpp_app_id)){
@@ -192,8 +194,22 @@ var pingpp_one = {
       if(!stash.amount && ('undefined' != typeof pingpp_amount)) {
         stash.amount = pingpp_amount;
       }
+      if(!stash.subject && ('undefined' != typeof pingpp_subject)) {
+        stash.subject = pingpp_subject;
+      }
+      if(!stash.channel && ('undefined' != typeof pingpp_channel)) {
+        stash.channel = pingpp_channel;
+      }
 
-      comUtil.request(_this.AD_URL, 'GET', {app: stash.app_id, charge: stash.ch_id, amount:stash.amount}, function (res, status) {
+      comUtil.request(_this.AD_URL, 'POST',
+        {
+          app: stash.app_id,
+          charge_id: stash.ch_id,
+          amount:stash.amount,
+          subject: stash.subject,
+          channel: stash.channel,
+          version: _this.version
+        }, function (res, status) {
         var data = {};
         try {
           var data = JSON.parse(res);
