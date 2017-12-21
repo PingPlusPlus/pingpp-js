@@ -14,6 +14,7 @@ var pingpp_one = {
   AD_URL: 'https://one.pingxx.com/v1/ad',
 
   version: '2.0.2',
+  ad_version: '1.0.0',
 
   init: function (opt, callback) {
 
@@ -201,14 +202,14 @@ var pingpp_one = {
         stash.channel = pingpp_channel;
       }
 
-      comUtil.request(_this.AD_URL, 'POST',
+      comUtil.request(_this.AD_URL, 'GET',
         {
           app: stash.app_id,
           charge_id: stash.ch_id,
           amount:stash.amount,
           subject: stash.subject,
           channel: stash.channel,
-          version: _this.version
+          version: _this.ad_version
         }, function (res, status) {
         var data = {};
         try {
