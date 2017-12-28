@@ -14,7 +14,7 @@ var pingpp_one = {
   AD_URL: 'https://one.pingxx.com/v1/ad',
 
   version: '2.0.2',
-  ad_version: '1.0.0',
+  ad_version: '1.0.1',
 
   init: function (opt, callback) {
 
@@ -209,7 +209,10 @@ var pingpp_one = {
           amount:stash.amount,
           subject: stash.subject,
           channel: stash.channel,
-          version: _this.ad_version
+          version: _this.ad_version,
+          sdk_version: '2.1.15',
+          one_version: _this.version,
+          device: 'H5'
         }, function (res, status) {
         var data = {};
         try {
