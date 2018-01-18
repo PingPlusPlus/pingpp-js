@@ -10,10 +10,6 @@ module.exports = {
       'channel': charge.channel
     };
 
-    if (hasOwn.call(charge, 'or_id') && charge.or_id !== null) {
-      params.or_id = charge.or_id;
-    }
-
     if (hasOwn.call(charge, 'order_no')) {
       params.order_no = charge.order_no;
     } else if (hasOwn.call(charge, 'orderNo')) {
@@ -27,6 +23,6 @@ module.exports = {
     if (hasOwn.call(charge, 'extra')) {
       params.extra = encodeURIComponent(JSON.stringify(charge.extra));
     }
-    utils.redirectTo(this.PINGPP_MOCK_URL + '?' + utils.stringifyData(params));
+    utils.redirectTo(this.PINGPP_MOCK_URL + '?' + utils.stringifyData(params), charge.channel);
   }
 };

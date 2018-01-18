@@ -69,8 +69,7 @@ module.exports = {
   runTestMode: function(charge) {
     var dopay = confirm('模拟付款？');
     if (dopay) {
-      var path = (charge.or_id === null ? '' : '/orders/' + charge.or_id)
-          + '/charges/' + charge.id;
+      var path = '/charges/' + charge.id;
       utils.request(this.PINGPP_NOTIFY_URL_BASE + path + '?livemode=false',
         'GET', null,
         function(data, status) {

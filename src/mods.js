@@ -5,6 +5,7 @@ module.exports = mods;
 mods.channels = {
   wx_pub: require('./channels/wx_pub'),
   upacp_wap: require('./channels/upacp_wap'),
+  alipay_qr: require('./channels/alipay_qr'),
   alipay_wap: require('./channels/alipay_wap'),
   yeepay_wap: require('./channels/yeepay_wap'),
   jdpay_wap: require('./channels/jdpay_wap'),

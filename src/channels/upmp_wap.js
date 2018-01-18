@@ -6,6 +6,6 @@ module.exports = {
 
   handleCharge: function(charge) {
     var credential = charge.credential[charge.channel];
-    utils.redirectTo(this.UPMP_WAP_URL + credential.paydata);
+    utils.redirectTo(this.UPMP_WAP_URL + credential.paydata, charge.channel);
   }
 };

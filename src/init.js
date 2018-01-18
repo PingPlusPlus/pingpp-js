@@ -8,7 +8,9 @@ module.exports = {
   init: function() {
     var self = this;
     utils.documentReady(function(){
-      self.initPuid();
+      try {
+        self.initPuid();
+      } catch (e){/* empty */}
     });
   },
 

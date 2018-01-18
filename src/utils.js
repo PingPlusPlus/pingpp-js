@@ -1,3 +1,4 @@
+var callbacks = require('./callbacks');
 var hasOwn = {}.hasOwnProperty;
 
 var utils = module.exports = {
@@ -131,7 +132,11 @@ var utils = module.exports = {
     return str;
   },
 
-  redirectTo: function (url) {
+  redirectTo: function (url, channel) {
+    if (callbacks.shouldReturnUrlByCallback(channel)) {
+      callbacks.triggerUrlReturnCallback(null, url);
+      return;
+    }
     if (typeof window === 'undefined') {
       console.log('Not a browser, redirect url: ' + url);
       return;
