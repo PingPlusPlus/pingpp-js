@@ -19,6 +19,6 @@ module.exports = {
       }
     }
     var query = utils.stringifyData(credential, channel, true);
-    utils.redirectTo(baseURL + '?' + query);
+    utils.redirectTo(baseURL + '?' + query, channel);
   }
 };

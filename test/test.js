@@ -7,63 +7,66 @@ module.exports = {
     var version = require('../package.json').version;
     var pingpp = require('../src/main.js');
     if (version != pingpp.version) {
-      console.log('Version number does not match.');
+      console.error('Version number does not match.');
     } else {
       console.log('Version: ' + pingpp.version);
     }
+
+    pingpp.setUrlReturnCallback(function (err, url) {
+      console.log(url);
+    });
+
     var charge = {
-      "id": "ch_oCtn1dmbv0KGPyugGGHyf5K2",
+      "id": "ch_jD0mL8L88i9Sub9OG0qTiTOS",
       "object": "charge",
-      "created": 1467954781,
+      "created": 1512994590,
       "livemode": true,
       "paid": false,
       "refunded": false,
-      "app": "app_9acb18iK84P5xDQW",
-      "channel": "alipay_wap",
-      "order_no": "3901fdbc6084b414",
-      "client_ip": "180.148.2.118",
+      "reversed": false,
+      "app": "app_1Gqj58ynP0mHeX1q",
+      "channel": "alipay_pc_direct",
+      "order_no": "201700211512994583",
+      "client_ip": "192.168.23.32",
       "amount": 100,
       "amount_settle": 99,
       "currency": "cny",
       "subject": "测试订单",
       "body": "订单详情",
       "extra": {
-        "success_url": "http://example.com/success",
-        "cancel_url": "http://example.com/cancel"
+        "success_url": "https://example.com/success",
+        "qr_pay_mode": 4,
+        "qrcode_width": 300
       },
       "time_paid": null,
-      "time_expire": 1468041181,
+      "time_expire": 1513080990,
       "time_settle": null,
       "transaction_no": null,
       "refunds": {
         "object": "list",
-        "url": "/v1/charges/ch_oCtn1dmbv0KGPyugGGHyf5K2/refunds",
+        "url": "/v1/charges/ch_jD0mL8L88i9Sub9OG0qTiTOS/refunds",
         "has_more": false,
         "data": []
       },
       "amount_refunded": 0,
       "failure_code": null,
       "failure_msg": null,
-      "metadata": {
-      },
+      "metadata": {},
       "credential": {
         "object": "credential",
-        "alipay_wap": {
-          "channel_url": "https://mapi.alipay.com/gateway.do",
-          "service": "alipay.wap.create.direct.pay.by.user",
-          "_input_charset": "utf-8",
-          "notify_url": "https://api.pingxx.com/notify/charges/ch_oCtn1dmbv0KGPyugGGHyf5K2",
-          "partner": "2088721413954971",
-          "out_trade_no": "3901fdbc6084b414",
-          "subject": "测试订单",
-          "body": "订单详情",
-          "total_fee": "1.00",
-          "payment_type": 1,
-          "seller_id": "2088721413954971",
-          "it_b_pay": "2016-07-09 13:13:01",
-          "return_url": "http://example.com/success",
-          "sign": "Kd7+F4kZxb9vSdJ/iDqtkpWKEm6NYtWOSPykBQWtLH9oXSqoh47JF+Kzn3Hg/19kgHPkS/GkLR+CEwEFHbmu0aUJUyyI0BxH76Eh4q+UnWpZZU0cHYudML+XyLDpTaJ+tAH8MpIj1icMOd1wTGUH3Asqeu/lU3tCbPTCaju4lJ0=",
-          "sign_type": "RSA"
+        "alipay_pc_direct": {
+          "app_id": "2016110302520983",
+          "method": "alipay.trade.page.pay",
+          "format": "JSON",
+          "charset": "utf-8",
+          "sign_type": "RSA2",
+          "timestamp": "2017-12-11 20:16:30",
+          "version": "1.0",
+          "biz_content": "{\"body\":\"订单详情\",\"subject\":\"测试订单\",\"out_trade_no\":\"201700211512994583\",\"total_amount\":1,\"product_code\":\"FAST_INSTANT_TRADE_PAY\",\"timeout_express\":\"1440m\",\"qr_pay_mode\":4,\"qrcode_width\":300}",
+          "notify_url": "https://notify.pingxx.com/notify/charges/ch_jD0mL8L88i9Sub9OG0qTiTOS",
+          "return_url": "https://example.com/success",
+          "sign": "qj7mZXBmp7s8aoWlfruqbJWNZc/Qmzrzo1BFhYvbQL6dJskc3NX7oScZuwJIoBhts/mgO77+ziYceI1XANJBhXhFzwJQS0vgEBpwzxAEY008FSbf8Rolfck6C2lyXH+4uhjlk5bzwBAMa2VudR0zcfK1/rUiHVNuG/YHhQIietyyG1SVL/YnMhwo+b7cDLn87pj6/tYRxBNob9cLRMZLQ9JOgHb2JRuRxDpiIpfSlBQMMnoC2TvkUkrLGjhdSsUXd1QqTDbT28+tsMtPMBIjw4Lmgpw6Qr/Y39MtVTOUiSIHdwnG37+8GVML6zfP9v6KNYwH62GNIU0PfpsMzv4p+w==",
+          "channel_url": "https://openapi.alipay.com/gateway.do"
         }
       },
       "description": null

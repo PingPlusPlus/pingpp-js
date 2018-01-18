@@ -1,4 +1,8 @@
 # ChangeLog
+
+### 2.1.16 (2017-12-11)
+- 新增: `pingpp.setUrlReturnCallback` 方法，支持获取支付页面地址而不是直接跳转
+
 ### 2.1.15 (2017-10-18)
 - 新增: 支付宝口碑渠道 (alipay_qr)
 - 修复：DOM security error

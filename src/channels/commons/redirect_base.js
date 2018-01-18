@@ -16,6 +16,6 @@ module.exports = {
         'credential format is incorrect'));
       return;
     }
-    utils.redirectTo(targetURL);
+    utils.redirectTo(targetURL, charge.channel);
   }
 };

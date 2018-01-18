@@ -97,6 +97,22 @@ PingppSDK.prototype.createPayment = function (
   channelModule.handleCharge(payment_elements);
 };
 
-PingppSDK.prototype.setAPURL =function (url) {
+PingppSDK.prototype.setAPURL = function (url) {
   stash.APURL = url;
+};
+
+PingppSDK.prototype.setUrlReturnCallback = function (callback, channels) {
+  if (typeof callback === 'function') {
+    callbacks.urlReturnCallback = callback;
+  } else {
+    throw 'callback need to be a function';
+  }
+
+  if (typeof channels !== 'undefined') {
+    if (Array.isArray(channels)) {
+      callbacks.urlReturnChannels = channels;
+    } else {
+      throw 'channels need to be an array';
+    }
+  }
 };
