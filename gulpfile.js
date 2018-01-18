@@ -149,7 +149,7 @@ var makeLibModulesContent = function() {
     extranames.push('wx_jssdk');
   }
   if (hasOwn.call(cmdOptions, 'one')) {
-    extranames.push(['one', './pingpp_one/init']);
+    extranames.push(['one', './pingpp_ui/init']);
   }
 
   return {

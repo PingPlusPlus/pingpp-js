@@ -24,7 +24,6 @@ module.exports = {
         return;
       }
 
-      utils.showLoading();
       _this.buttonClickable = false;
       var target = e.target;
       var channel = target.getAttribute('p_one_channel');
@@ -36,6 +35,13 @@ module.exports = {
         channel = target.parentNode.parentNode.getAttribute('p_one_channel');
       }
 
+      if(!stash.userData.charge_url) {
+        stash.userCallback(channel);
+        utils.close();
+        return;
+      }
+
+      utils.showLoading();
       var postData = {};
       postData.channel = channel;
       postData.order_no = stash.userData.order_no;

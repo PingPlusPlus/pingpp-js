@@ -10,11 +10,11 @@ var bind = require('./bind');
 var utils = require('./utils');
 var pingpp = require('../main');
 
-var pingpp_one = {
+var pingpp_ui = {
   AD_URL: 'https://one.pingxx.com/v1/ad',
 
-  version: '2.0.2',
-  ad_version: '1.0.1',
+  version: '2.0.3',
+  ad_version: '1.0.2',
 
   init: function (opt, callback) {
 
@@ -27,24 +27,6 @@ var pingpp_one = {
     bind.moveFlag = false;
 
     var channel = opt.channel || {};
-
-    if (typeof opt.app_id == 'undefined') {
-      callback({
-        status: false,
-        msg: '缺少参数 app_id',
-        debug: stash.isDebugMode
-      });
-      return;
-    }
-
-    if (typeof opt.amount == 'undefined') {
-      callback({
-        status: false,
-        msg: '缺少参数 amount',
-        debug: stash.isDebugMode
-      });
-      return;
-    }
 
     if (typeof opt.channel == 'undefined') {
       callback({
@@ -59,15 +41,6 @@ var pingpp_one = {
       callback({
         status: false,
         msg: '请至少配置一个渠道',
-        debug: stash.isDebugMode
-      });
-      return;
-    }
-
-    if (typeof opt.charge_url == 'undefined') {
-      callback({
-        status: false,
-        msg: '缺少参数 charge_url',
         debug: stash.isDebugMode
       });
       return;
@@ -108,6 +81,9 @@ var pingpp_one = {
           break;
         case 'yeepay_wap':
           _channel.yeepay_wap = 'yeepay_wap';
+          break;
+        case 'wx_wap':
+          _channel.wx_wap = 'wx_wap';
           break;
       }
     }
@@ -166,6 +142,21 @@ var pingpp_one = {
     pingpp.createPayment(stash.charge, bind.callbackCharge);
   },
 
+  createPayment: function(data, callback) {
+    if (typeof data === 'string') {
+      data = JSON.parse(data);
+    }
+    try{
+      localStorage.setItem('pingpp_app_id', data.app);
+      localStorage.setItem('pingpp_ch_id', data.id);
+      localStorage.setItem('pingpp_amount', data.amount);
+      localStorage.setItem('pingpp_subject', data.subject);
+      localStorage.setItem('pingpp_channel', data.channel);
+    } catch (e){}
+
+    pingpp.createPayment(data, callback);
+  },
+
   success: function (callback, continueCallback) {
     var _this = this;
     window.ShitudtAdFinish = continueCallback;
@@ -201,6 +192,12 @@ var pingpp_one = {
       if(!stash.channel && ('undefined' != typeof pingpp_channel)) {
         stash.channel = pingpp_channel;
       }
+      var device = 'H5';
+      if(comUtil.inAlipay()) {
+        device = 'alipay';
+      } else if(comUtil.inWeixin()) {
+        device = 'wx';
+      }
 
       comUtil.request(_this.AD_URL, 'GET',
         {
@@ -212,7 +209,7 @@ var pingpp_one = {
           version: _this.ad_version,
           sdk_version: '2.1.15',
           one_version: _this.version,
-          device: 'H5'
+          device: device
         }, function (res, status) {
         var data = {};
         try {
@@ -246,7 +243,7 @@ var pingpp_one = {
   }
 };
 
-window.pingpp_one = pingpp_one;
+window.pingpp_ui = pingpp_ui;
 comUtil.documentReady(function () {
   setTimeout(function () {
     var e = document.createEvent('Event');
@@ -254,4 +251,4 @@ comUtil.documentReady(function () {
     document.dispatchEvent(e);
   }, 0);
 });
-module.exports = pingpp_one;
+module.exports = pingpp_ui;
