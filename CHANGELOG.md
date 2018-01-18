@@ -1,5 +1,8 @@
 # ChangeLog
 
+### 2.2.1 (2018-01-18)
+- 新增：`pingpp_ui`
+
 ### 2.1.16 (2017-12-11)
 - 新增: `pingpp.setUrlReturnCallback` 方法，支持获取支付页面地址而不是直接跳转
 

@@ -23,8 +23,7 @@ mods.channels = {
 };
 
 mods.extras = {
-  ap: require('./channels/extras/ap'),
-  ui: require('./pingpp_ui/init')
+  ap: require('./channels/extras/ap')
 };
 
 mods.getChannelModule = function(channel) {

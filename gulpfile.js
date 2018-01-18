@@ -15,7 +15,10 @@ var scriptSrcFiles = 'src/**/*.js';
 var destJsFile = 'pingpp.js';
 var entries = ['./src/main.js'];
 var distDir = './dist/';
-var distFiles = [distDir + '**/*.js', distDir + '**/*.js.map'];
+var distFiles = [
+  distDir + '/' + destJsFile,
+  distDir + '/' + destJsFile + '.map'
+];
 var releaseObjectName = 'pingpp';
 var channelsDir = './channels/';
 var channelsDirPath = __dirname + '/src/channels/';

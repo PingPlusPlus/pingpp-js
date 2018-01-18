@@ -9,6 +9,7 @@ require('./css.hbs.js');
 var bind = require('./bind');
 var utils = require('./utils');
 var pingpp = require('../main');
+var sdk_version = require('../version').v;
 
 var pingpp_ui = {
   AD_URL: 'https://one.pingxx.com/v1/ad',
@@ -152,7 +153,7 @@ var pingpp_ui = {
       localStorage.setItem('pingpp_amount', data.amount);
       localStorage.setItem('pingpp_subject', data.subject);
       localStorage.setItem('pingpp_channel', data.channel);
-    } catch (e){}
+    } catch (e) { /* empty */}
 
     pingpp.createPayment(data, callback);
   },
@@ -168,15 +169,16 @@ var pingpp_ui = {
       return;
     }
 
-    comUtil.documentReady(function(){
+    comUtil.documentReady(function() {
       try {
         stash.app_id = localStorage.getItem('pingpp_app_id');
         stash.ch_id = localStorage.getItem('pingpp_ch_id');
         stash.amount = localStorage.getItem('pingpp_amount');
         stash.subject = localStorage.getItem('pingpp_subject');
         stash.channel = localStorage.getItem('pingpp_channel');
-      } catch (e) {}
+      } catch (e) { /* empty */ }
 
+      /*global pingpp_app_id,pingpp_ch_id,pingpp_amount,pingpp_subject,pingpp_channel*/
       if(!stash.app_id && ('undefined' != typeof pingpp_app_id)){
         stash.app_id = pingpp_app_id;
       }
@@ -199,28 +201,29 @@ var pingpp_ui = {
         device = 'wx';
       }
 
-      comUtil.request(_this.AD_URL, 'GET',
-        {
-          app: stash.app_id,
-          charge_id: stash.ch_id,
-          amount:stash.amount,
-          subject: stash.subject,
-          channel: stash.channel,
-          version: _this.ad_version,
-          sdk_version: '2.1.15',
-          one_version: _this.version,
-          device: device
-        }, function (res, status) {
+      comUtil.request(_this.AD_URL, 'GET', {
+        app: stash.app_id,
+        charge_id: stash.ch_id,
+        amount:stash.amount,
+        subject: stash.subject,
+        channel: stash.channel,
+        version: _this.ad_version,
+        sdk_version: sdk_version,
+        one_version: _this.version,
+        device: device
+        /* eslint-disable no-unused-vars */
+      }, function (res, status) {
+        /* eslint-enable no-unused-vars */
         var data = {};
         try {
-          var data = JSON.parse(res);
+          data = JSON.parse(res);
           if (data.result == 'success' && data.type == 'html') {
             document.open();
             document.write(data.content);
             document.close();
             return;
           }
-        } catch (e){}
+        } catch (e) { /* empty */ }
 
         Handlebars.registerHelper('position', function (left, right, options) {
           if (left == right) {
@@ -243,12 +246,15 @@ var pingpp_ui = {
   }
 };
 
-window.pingpp_ui = pingpp_ui;
-comUtil.documentReady(function () {
-  setTimeout(function () {
-    var e = document.createEvent('Event');
-    e.initEvent('pingpp_one_ready', true, true);
-    document.dispatchEvent(e);
-  }, 0);
-});
+if (typeof window != 'undefined') {
+  window.pingpp_ui = pingpp_ui;
+  comUtil.documentReady(function () {
+    setTimeout(function () {
+      var e = document.createEvent('Event');
+      e.initEvent('pingpp_one_ready', true, true);
+      document.dispatchEvent(e);
+    }, 0);
+  });
+}
+
 module.exports = pingpp_ui;

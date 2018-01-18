@@ -70,7 +70,7 @@ module.exports = {
               localStorage.setItem('pingpp_amount', json.amount);
               localStorage.setItem('pingpp_subject', json.subject);
               localStorage.setItem('pingpp_channel', json.channel);
-            } catch (e){}
+            } catch (e){ /* empty */ }
 
             if (stash.isDebugMode) {//debug模式下暂停，调用resume之后继续
               _this.buttonClickable = true;
