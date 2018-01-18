@@ -40,6 +40,6 @@ module.exports = {
     if (typeof this.urlReturnCallback !== 'function') {
       return false;
     }
-    return this.urlReturnChannels.includes(channel);
+    return this.urlReturnChannels.indexOf(channel) !== -1;
   }
 };
