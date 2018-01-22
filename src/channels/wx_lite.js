@@ -7,6 +7,8 @@ var hasOwn = {}.hasOwnProperty;
 /*global wx*/
 module.exports = {
 
+  PINGPP_NOTIFY_URL_BASE: 'https://notify.pingxx.com/notify',
+
   handleCharge: function (charge) {
     var credential = charge.credential[charge.channel];
     var fields = [
@@ -52,12 +54,21 @@ module.exports = {
     wx.requestPayment(wx_lite);
   },
 
-  /* eslint-disable no-unused-vars */
-  runTestMode: function (url) {
-    wx.showModal({
-      title: '提示',
-      content: '因 "微信小程序" 限制 域名的原因 暂不支持 模拟付款 请使用 livekey 获取 charge 进行支付'
-    });
+  runTestMode: function (charge) {
+    var path = '/charges/' + charge.id;
+    wx.request({
+      url: this.PINGPP_NOTIFY_URL_BASE + path + '?livemode=false',
+      success: function(res) {
+        if (res.data == 'success') {
+          callbacks.innerCallback('success');
+        } else {
+          callbacks.innerCallback('fail',
+            callbacks.error('testmode_notify_fail'));
+        }
+      },
+      fail:function() {
+        callbacks.innerCallback('fail', callbacks.error('network_err'));
+      }
+    })
   }
-  /* eslint-enable no-unused-vars */
 };
