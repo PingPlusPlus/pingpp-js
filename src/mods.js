@@ -7,12 +7,15 @@ mods.channels = {
   alipay_qr: require('./channels/alipay_qr'),
   alipay_wap: require('./channels/alipay_wap'),
   bfb_wap: require('./channels/bfb_wap'),
+  cb_alipay_pc_direct: require('./channels/cb_alipay_pc_direct'),
+  cb_alipay_wap: require('./channels/cb_alipay_wap'),
   cmb_wallet: require('./channels/cmb_wallet'),
   cp_b2b: require('./channels/cp_b2b'),
   fqlpay_qr: require('./channels/fqlpay_qr'),
   fqlpay_wap: require('./channels/fqlpay_wap'),
   isv_wap: require('./channels/isv_wap'),
   jdpay_wap: require('./channels/jdpay_wap'),
+  paypal: require('./channels/paypal'),
   qpay_pub: require('./channels/qpay_pub'),
   upacp_pc: require('./channels/upacp_pc'),
   upacp_wap: require('./channels/upacp_wap'),
@@ -23,7 +26,7 @@ mods.channels = {
 };
 
 mods.extras = {
-  ap: require('./channels/extras/ap')
+
 };
 
 mods.getChannelModule = function(channel) {
