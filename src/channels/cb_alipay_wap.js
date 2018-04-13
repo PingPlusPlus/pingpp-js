@@ -25,8 +25,6 @@ module.exports = {
       }
     }
 
-    console.log(baseURL);
-
     var query = utils.stringifyData(credential, channel, true);
     var targetURL = baseURL + '?' + query;
     var ap = mods.getExtraModule('ap');

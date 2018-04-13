@@ -13,8 +13,6 @@ module.exports = {
       baseURL = credential.channel_url;
     }
 
-    console.log('-------',baseURL,'--------');
-
     if (!hasOwn.call(credential, '_input_charset')) {
       if(hasOwn.call(credential, 'service')
         && credential.service === 'create_direct_pay_by_user') {
@@ -23,7 +21,6 @@ module.exports = {
     }
     var query = utils.stringifyData(credential, channel, true);
 
-    console.log('-------',query,'--------');
     utils.redirectTo(baseURL + '?' + query, channel);
   }
 };

@@ -1,5 +1,8 @@
 # ChangeLog
 
+### 2.2.3 (2018-04-13)
+- 新增：添加支付渠道 [ `cb_alipay_pc_direct` , `cb_alipay_wap` , `paypal`]
+
 ### 2.2.2 (2018-01-22)
 - 新增：wx_pub 跨境支付
 - 修改：支持小程序模拟支付

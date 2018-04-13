@@ -26,7 +26,7 @@ mods.channels = {
 };
 
 mods.extras = {
-
+  ap: require('./channels/extras/ap')
 };
 
 mods.getChannelModule = function(channel) {
