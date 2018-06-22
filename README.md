@@ -191,7 +191,7 @@ $code = $_GET['code'];
 $open_id = \Pingpp\WxpubOAuth::getOpenid($wx_app_id, $wx_app_secret, $code);
 ```
 
-##### 将 `open_id` 作为创建 `charge` 时的 `extra` 参数，具体方法参考[技术文档](https://pingxx.com/document/api/#api-c-new)，例：
+##### 将 `open_id` 作为创建 `charge` 时的 `extra` 参数，具体方法参考[技术文档](https://www.pingxx.com/api#%E6%94%AF%E4%BB%98%E6%B8%A0%E9%81%93-extra-%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E)，例：
 
 ```js
 {
@@ -246,7 +246,7 @@ $code = $_GET['code'];
 $open_id = \Pingpp\WxpubOAuth::getOpenid($wx_app_id, $wx_app_secret, $code);
 ```
 
-##### 将 `open_id` 作为创建 `charge` 时的 `extra` 参数，具体方法参考[技术文档](https://pingxx.com/document/api/#api-c-new)，例：
+##### 将 `open_id` 作为创建 `charge` 时的 `extra` 参数，具体方法参考[技术文档](https://www.pingxx.com/api#%E6%94%AF%E4%BB%98%E6%B8%A0%E9%81%93-extra-%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E)，例：
 
 ```js
 {
