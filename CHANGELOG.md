@@ -3,6 +3,7 @@
 ### 2.2.4 (2018-06-22)
 - 新增：添加支付渠道 [ `upacp_b2b`]
 - 修复：修复 README.md 文档链接
+- 更新：更新微信小程序 [`wx_lite`]
 
 ### 2.2.3 (2018-04-13)
 - 新增：添加支付渠道 [ `cb_alipay_pc_direct` , `cb_alipay_wap` , `paypal`]
