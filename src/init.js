@@ -9,7 +9,7 @@ module.exports = {
     var self = this;
     utils.documentReady(function(){
       try {
-        self.initPuid();
+        (!utils.inWxLite()) && self.initPuid();
       } catch (e){/* empty */}
     });
   },

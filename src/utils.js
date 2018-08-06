@@ -160,6 +160,14 @@ var utils = module.exports = {
     return ua.indexOf('alipayclient') !== -1;
   },
 
+  inWxLite: function() {
+    if(typeof wx === 'undefined') {
+      return false;
+    }
+    
+    return wx.miniProgram || wx.requestPayment;
+  },
+
   documentReady: function (fn) {
     if (typeof document === 'undefined') {
       fn();
