@@ -1,17 +1,17 @@
 var callbacks = require('../callbacks');
-var hasOwn = {}.hasOwnProperty;
+
 /*global my*/
 module.exports = {
 
   PINGPP_NOTIFY_URL_BASE: 'https://notify.pingxx.com/notify',
 
   handleCharge: function (charge) {
-    var credential = charge.credential[charge.channel];
-    if (hasOwn.call(credential, 'trade_no')) {
-      this.callpay(credential.trade_no);
+    var trade_no = charge.credential[charge.channel];
+    if (trade_no) {
+      this.callpay(trade_no);
     } else {
       callbacks.innerCallback('fail',
-        callbacks.error('invalid_credential', 'missing_trade_no'));
+        callbacks.error('invalid_credential', 'missing_alipay_lite'));
     }
   },
 
