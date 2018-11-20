@@ -280,7 +280,7 @@ pingpp.createPayment(charge, function(result, err) {
 ```
 
 ## <h2 id='2'>使用 Ping++ SDK UI 版</h2>
-使用 UI 版本且不想展示 Ping++ 提供的广告请[联系我们](https://www.pingxx.com/contact)
+
 ### <h3 id='2.1'>支持的渠道</h3>
 
 1. 支付宝手机网页支付（alipay_wap）
@@ -376,7 +376,6 @@ pingpp_ui.success(function(res){
 ```
 
 ### <h3 id="2.3">注意事项</h3>
-使用 UI 版本且不想展示 Ping++ 提供的广告请[联系我们](https://www.pingxx.com/contact)
 
 ## <h2 id='3'>常见问题</h3>
 #### 问题一: H5 页面微信公众号支付调用 Ping++ 提示失败 (来源：工单)
