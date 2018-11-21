@@ -29,9 +29,9 @@ module.exports = {
     alipay_lite.tradeNO = tradeNO;
     alipay_lite.complete = function (res) {
       //支付成功
-      if (res.resultCode === 9000) {
+      if (res.resultCode == 9000) {
         callbacks.innerCallback('success');
-      } else if (res.resultCode === 6001) { //取消支付
+      } else if (res.resultCode == 6001) { //取消支付
         callbacks.innerCallback('cancel', callbacks.error('用户取消支付'));
       } else {
         callbacks.innerCallback('fail', callbacks.error('支付失败'));
