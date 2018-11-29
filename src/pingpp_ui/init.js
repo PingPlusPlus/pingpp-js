@@ -14,7 +14,7 @@ var sdk_version = require('../version').v;
 var pingpp_ui = {
   AD_URL: 'https://one.pingxx.com/v1/ad',
 
-  version: '2.0.3',
+  version: '2.0.4',
   ad_version: '1.0.2',
 
   init: function (opt, callback) {
