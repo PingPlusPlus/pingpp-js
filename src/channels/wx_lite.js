@@ -43,7 +43,8 @@ module.exports = {
         callbacks.innerCallback('success');
       }
       //取消支付
-      if (res.errMsg === 'requestPayment:cancel' || res.errMsg === 'requestPayment:fail cancel') {
+      if (res.errMsg === 'requestPayment:cancel'
+        || res.errMsg === 'requestPayment:fail cancel') {
         callbacks.innerCallback('cancel', callbacks.error('用户取消支付'));
       }
       //支付验证签名失败
@@ -69,6 +70,6 @@ module.exports = {
       fail:function() {
         callbacks.innerCallback('fail', callbacks.error('network_err'));
       }
-    })
+    });
   }
 };

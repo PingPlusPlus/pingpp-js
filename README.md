@@ -269,7 +269,6 @@ $open_id = \Pingpp\WxpubOAuth::getOpenid($wx_app_id, $wx_app_secret, $code);
 ##### 得到 `charge` 后，在页面中引用 `pingpp.js` ，调用 `pingpp.createPayment`，结果会直接在 `callback` 中返回。
 
 ```js
-var pingpp = require('pingpp.js 的绝对路径');
 pingpp.createPayment(charge, function(result, err) {
   if (result=="success") {
     // payment succeeded
