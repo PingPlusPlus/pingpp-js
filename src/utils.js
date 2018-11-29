@@ -168,6 +168,14 @@ var utils = module.exports = {
     return wx.miniProgram || wx.requestPayment;
   },
 
+  inAlipayLite: function() {
+    if(typeof my === 'undefined') {
+      return false;
+    }
+
+    return my.tradePay;
+  },
+
   documentReady: function (fn) {
     if (typeof document === 'undefined') {
       fn();
