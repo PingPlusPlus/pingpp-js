@@ -3,7 +3,7 @@ var hasOwn = {}.hasOwnProperty;
 
 module.exports = {
 
-  ALIPAY_PC_DIRECT_URL: 'https://mapi.alipay.com/gateway.do',
+  ALIPAY_PC_DIRECT_URL: 'https://intlmapi.alipay.com/gateway.do',
 
   handleCharge: function(charge) {
     var channel = charge.channel;
@@ -15,7 +15,7 @@ module.exports = {
 
     if (!hasOwn.call(credential, '_input_charset')) {
       if(hasOwn.call(credential, 'service')
-        && credential.service === 'create_direct_pay_by_user') {
+        && credential.service === 'create_forex_trade') {
         credential._input_charset = 'utf-8';
       }
     }

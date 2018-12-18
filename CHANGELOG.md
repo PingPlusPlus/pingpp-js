@@ -1,5 +1,9 @@
 # ChangeLog
 
+### 2.2.10
+
+- 修正：`cb_walipay_wap`、`cb_alipay_pc_direct` 的跳转地址
+
 ### 2.2.9 (2018-11-29)
 
 - 更新：新增 `alipay_lite` 渠道
