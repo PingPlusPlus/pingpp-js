@@ -1,6 +1,7 @@
 # Pingpp HTML5 SDK
 
 ## 目录
+
 * [1. 使用 Ping++ SDK 标准版](#1)
 	* [1.1 支持的渠道](#1.1)
 	* [1.2 如何构建](#1.2)
@@ -17,6 +18,7 @@
 ## <h2 id='1'>使用 Ping++ SDK 标准版</h2>
 
 ### <h3 id='1.1'>支持的渠道</h3>
+
 - 手机网页支付
     1. 支付宝手机网页支付（alipay_wap）
     2. 百度钱包手机网页支付（bfb_wap）
@@ -38,14 +40,17 @@
 - 线下扫码支付(isv_wap)
 
 ### <h3 id='1.2'>如何构建</h3>
-[dist](/dist) 目录下提供了已经构建好的 SDK，使用的命令是 `gulp build --alipay_in_weixin`。
+
+[dist](/dist) 目录下提供了已经构建好的 SDK，使用的命令是 `gulp build --alipay_in_weixin --agreement`。
 
 #### 全局安装 gulp
 
 ``` bash
 npm install -g gulp
 ```
+
 #### 默认构建
+
 默认会包含所有渠道
 
 ``` bash
@@ -53,6 +58,7 @@ npm run build
 ```
 
 #### 自定义构建
+
 安装依赖
 
 ``` bash
@@ -60,6 +66,7 @@ npm install
 ```
 
 ##### --channels
+
 选择渠道，渠道字段用空格或者英文逗号分割，例：
 
 ``` bash
@@ -68,7 +75,16 @@ gulp build --channels="alipay_wap wx_pub upacp_wap"
 
 可选的渠道模块请查看 [src/channels](/src/channels) 目录下的文件名
 
+###### wx_lite
+
+因为微信小程序中 不能使用其他支付渠道，构建时请添加该参数
+
+``` bash
+gulp build --channels=wx_lite
+```
+
 ##### --name
+
 设置对象变量名
 
 ``` bash
@@ -76,6 +92,7 @@ gulp build --name="pingppPc" --channels="alipay_pc_direct upacp_pc"
 ```
 
 ##### --alipay_in_weixin
+
 如果要在微信内使用支付宝手机网页支付，请添加该参数
 
 ``` bash
@@ -97,38 +114,43 @@ pingpp.setAPURL('http://localhost/your/custom/url');
 该文件([pay.htm](/alipay_in_weixin/pay.htm))内的 `CURRENT_PAGE_URL` 变量也设置为相同的值。
 
 ##### --wx_jssdk
+
 如果想使用微信的 JS-SDK 来调起支付，请添加该参数
 
 ``` bash
 gulp build --wx_jssdk
 ```
 
-##### wx_lite
-因为微信小程序中 不能使用其他支付渠道，构建时请添加该参数
+##### --agreement
+
+如果需要使用签约接口，请添加该参数
 
 ``` bash
-gulp build --channels=wx_lite
+gulp build --agreement
 ```
 
 ### <h3 id='1.3'>使用说明</h3>
-#### 引入 JS 文件
-- script 标签方式
 
-    ``` html
-    <script src="/path/to/pingpp.js"></script>
-    ```
+#### 引入 JS 文件
 
 - Browserify 打包方式
 
-    首先使用 npm 下载
+    首先使用 `npm` 下载
 
     ``` bash
     npm install pingpp-js
     ```
+
     使用
 
     ``` javascript
     var pingpp = require('pingpp-js');
+    ```
+
+- script 标签方式
+
+    ``` html
+    <script src="/path/to/pingpp.js"></script>
     ```
 
 #### 使用服务端创建的 [charge](https://www.pingxx.com/docs/overview) 调用接口
@@ -147,25 +169,32 @@ pingpp.createPayment(data, function(result, err) {
   }
 });
 ```
+
 如果 `charge` 正确的话，会跳转到相应的支付页面，要求用户进行付款。
 
 用户支付成功后，会跳转到创建 `charge` 时定义的 `result_url` 或者 `success_url`。如果用户取消支付，则会跳转到 `result_url` 或者 `cancel_url`（具体情况根据渠道不同会有所变化）。
 
 #### 如果不想直接跳转到支付页面，而是获取支付页面地址
+
 在调用 `pingpp.createPayment` 之前，调用
+
 ```javascript
 pingpp.setUrlReturnCallback(callback, channels);
 ```
 
 ##### 参数 callback
+
 回调函数
+
 - 第一个参数接受错误信息，没有错误时为 null。
 - 第二个参数为支付界面地址的值。
 
 ##### 参数 channels
+
 需要启用该功能的渠道列表，类型为 `array`。默认值为 `['alipay_pc_direct']`。
 
 ##### 示例
+
 ```javascript
 pingpp.setUrlReturnCallback(function (err, url) {
   // 自行处理跳转或者另外打开支付页面地址(url)
@@ -173,10 +202,26 @@ pingpp.setUrlReturnCallback(function (err, url) {
 }, ['alipay_pc_direct', 'alipay_wap']);
 ```
 
+#### 调用签约接口
+
+从服务端获取 `agreement` 对象之后，调用
+
+```js
+pingpp.signAgreement(agreement, callback);
+```
+
+签约接口在对象不正确等情况下，会回调 `callback`。
+
+如果对象正确，则会跳转到相应的签约页面，签约结果**不会**在 `callback` 返回，需要商户自己调用服务端接口查询 `agreement` 状态。
+
 ### <h3 id='1.4'>微信公众号接入注意事项</h3>
+
 _以下示例中，Server-SDK 以 `php` 为例，其他语言请参考各语言 SDK 的文档或者示例_
+
 #### 关于 open_id
+
 ##### 用 Server-SDK 取得 `open_id`（微信公众号授权用户唯一标识）。
+
 先跳转到微信获取`授权 code`，地址由下方代码生成，`$wx_app_id` 是你的`微信公众号应用唯一标识`，`$redirect_url` 是用户确认授权后跳转的地址，用来接收 `code`。
 
 ```php
@@ -224,8 +269,11 @@ pingpp.createPayment(charge, function(result, err) {
 ```
 
 ### 微信小程序接入注意事项
+
 _以下示例中，Server-SDK 以 `php` 为例，其他语言请参考各语言 SDK 的文档或者示例_
+
 #### 关于 open_id
+
 ##### 小程序的 `code` 获取跟公众号的有些不同，小程序是有自己的 `API` 可以在客户端直接获取 `code`。
 
 ```js
@@ -291,14 +339,17 @@ pingpp.createPayment(charge, function(result, err) {
 7. 京东手机网页支付（jdpay_wap）
 
 ### <h3 id='2.2'>使用说明</h3>
+
 #### 引入 JS 文件
+
 - script 标签方式
 
     ``` html
     <script src="/path/to/pingpp_ui.js"></script>
     ```
-    
+
 #### 使用方法
+
 ##### 1.(方法一:) 不带渠道选择页面
 
 **调起支付**
@@ -351,8 +402,8 @@ pingpp_ui.init({
 // 在支付页调用支付：
 pingpp_ui.createPayment(charge, function(res, err) {
     if (result == "success") {
-    	// 只有微信公众号 (wx_pub)、QQ 公众号 (qpay_pub)
-    	//支付成功的结果会在这里返回，其他的支付结果都会跳转到 extra 中对应的 URL
+        // 只有微信公众号 (wx_pub)、QQ 公众号 (qpay_pub)
+        //支付成功的结果会在这里返回，其他的支付结果都会跳转到 extra 中对应的 URL
     } else if (result == "fail") {
         // charge 不正确或者微信公众号/QQ 公众号支付失败时会在此处返回
     } else if (result == "cancel") {
@@ -377,13 +428,16 @@ pingpp_ui.success(function(res){
 ### <h3 id="2.3">注意事项</h3>
 
 ## <h2 id='3'>常见问题</h3>
+
 #### 问题一: H5 页面微信公众号支付调用 Ping++ 提示失败 (来源：工单)
+
 返回结果: `get_brand_wcpay_request: fail`
 
 - 报错原因：微信授权目录填写错误。
 - 解决方案：详见[帮助中心](https://help.pingxx.com/article/123339)
 
 #### 问题二：微信内调用支付宝没出现引导界面，只有复制链接到浏览器
+
 - 报错原因：pay.htm 路径出错
 - 解决方案：
     1. 默认情况下，访问该文件的 URL 需要与你的支付页面时同级的。例：  
@@ -398,5 +452,6 @@ pingpp_ui.success(function(res){
         该文件([pay.htm](/alipay_in_weixin/pay.htm))内的 `CURRENT_PAGE_URL` 变量也设置为相同的值。
 
 #### 问题三：调不起支付，返回报错信息 json_decode_fail
+
 - 报错原因：传入的参数不是正确的 JSON 字符串或者 JSON 对象
 - 解决方案：客户端调用 SDK 时，确认服务端输出到客户端时，数据的正确性。

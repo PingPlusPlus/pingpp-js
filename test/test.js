@@ -2,17 +2,25 @@
 /*eslint max-len: ["off"]*/
 
 module.exports = {
+  pingpp: undefined,
 
   run: function() {
     var version = require('../package.json').version;
-    var pingpp = require('../src/main.js');
-    if (version != pingpp.version) {
+    this.pingpp = require('../src/main.js');
+    if (version != this.pingpp.version) {
       console.error('Version number does not match.');
     } else {
-      console.log('Version: ' + pingpp.version);
+      console.log('Version: ' + this.pingpp.version);
     }
 
-    pingpp.setUrlReturnCallback(function (err, url) {
+    this.testCharge();
+    this.testAgreement();
+  },
+
+  testCharge: function () {
+    console.log('running charge test...');
+
+    this.pingpp.setUrlReturnCallback(function (err, url) {
       console.log(url);
     });
 
@@ -72,9 +80,49 @@ module.exports = {
       "description": null
     };
 
-    pingpp.createPayment(charge, function(result, error){
+    this.pingpp.createPayment(charge, function(result, error){
       console.log(result);
       console.log(error);
     });
+  },
+
+  testAgreement: function () {
+    console.log('running agreement test...');
+
+    var agreement = {
+      "id": "agr_19EFuyiLcdTshr",
+      "object": "agreement",
+      "livemode": true,
+      "app": "app_1Gqj58ynP0mHeX1q",
+      "created": 1545882366,
+      "channel": "wx",
+      "contract_no": "912111545882234",
+      "contract_id": null,
+      "credential": {
+        "object": "credential",
+        "wx": {
+          "credential": "https://api.mch.weixin.qq.com/papay/entrustweb?appid=wx87cae2333f5068e1&mch_id=1300233301&plan_id=123611&contract_code=912111545882234&request_serial=912111545882234&contract_display_account=test&notify_url=https%3A%2F%2Fnotify.pingxx.com%2Fnotify%2Fagreements%2Fagr_19EFuyiLcdTsht&version=1.0&timestamp=1545882366&sign=11E5F8C28FE1CE78CF7FEEC1C502EC33"
+        }
+      },
+      "status": "created",
+      "time_succeeded": null,
+      "time_canceled": null,
+      "failure_code": null,
+      "failure_msg": null,
+      "extra": {
+        "plan_id": "123611",
+        "request_serial": "912111545882234",
+        "display_account": "test"
+      },
+      "metadata": {},
+      "source": null
+    };
+
+    var ret = this.pingpp.signAgreement(agreement, function (result, error) {
+      console.log(result);
+      console.log(error);
+    });
+
+    console.log(ret);
   }
 };

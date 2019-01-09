@@ -10,6 +10,8 @@ module.exports = {
     'alipay_pc_direct', // 默认只开启 alipay_pc_direct 使用 callback 返回 URL
   ],
 
+  userAgreementCallback: undefined,
+
   innerCallback: function(result, err) {
     if (typeof this.userCallback === 'function') {
       if (typeof err === 'undefined') {
@@ -41,5 +43,15 @@ module.exports = {
       return false;
     }
     return this.urlReturnChannels.indexOf(channel) !== -1;
+  },
+
+  innerAgreementCallback: function(result, err) {
+    if (typeof this.userAgreementCallback === 'function') {
+      if (typeof err === 'undefined') {
+        err = this.error();
+      }
+      this.userAgreementCallback(result, err);
+      this.userAgreementCallback = undefined;
+    }
   }
 };

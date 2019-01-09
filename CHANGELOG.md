@@ -1,5 +1,9 @@
 # ChangeLog
 
+### 2.2.11
+
+- 新增：签约接口 `pingpp.signAgreement(agr, callback)`
+
 ### 2.2.10
 
 - 修正：`cb_walipay_wap`、`cb_alipay_pc_direct` 的跳转地址

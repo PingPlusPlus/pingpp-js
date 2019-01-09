@@ -15,8 +15,6 @@ mods.channels = {
   cmb_pc_qr: require('./channels/cmb_pc_qr'),
   cmb_wallet: require('./channels/cmb_wallet'),
   cp_b2b: require('./channels/cp_b2b'),
-  fqlpay_qr: require('./channels/fqlpay_qr'),
-  fqlpay_wap: require('./channels/fqlpay_wap'),
   isv_wap: require('./channels/isv_wap'),
   jdpay_wap: require('./channels/jdpay_wap'),
   paypal: require('./channels/paypal'),
@@ -31,7 +29,8 @@ mods.channels = {
 };
 
 mods.extras = {
-  ap: require('./channels/extras/ap')
+  ap: require('./channels/extras/ap'),
+  agreement: require('./agreement')
 };
 
 mods.getChannelModule = function(channel) {

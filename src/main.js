@@ -116,3 +116,21 @@ PingppSDK.prototype.setUrlReturnCallback = function (callback, channels) {
     }
   }
 };
+
+PingppSDK.prototype.signAgreement = function (agreement, callback) {
+  if (typeof callback === 'function') {
+    callbacks.userAgreementCallback = callback;
+  }
+
+  var module = mods.getExtraModule('agreement');
+  if (typeof module === 'undefined') {
+    console.error('module "agreement" is undefined');
+    callbacks.innerCallback('fail',
+      callbacks.error('invalid_module',
+        'module "agreement" is undefined')
+    );
+    return false;
+  }
+
+  return module.signAgreement(agreement);
+};
