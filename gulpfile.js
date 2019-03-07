@@ -1,6 +1,7 @@
 /*global __dirname,process*/
+const { series, watch, dest } = require('gulp');
+
 var browserify = require('browserify');
-var gulp = require('gulp');
 var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 var uglify = require('gulp-uglify');
@@ -33,9 +34,7 @@ var cmdOptions = parseArgs(process.argv.slice(2), {
   string: ['channels', 'name', 'ui']
 });
 
-gulp.task('default', ['build']);
-
-gulp.task('build', ['clean', 'modules'], function() {
+function build(cb) {
   if (hasOwn.call(cmdOptions, 'name') && cmdOptions.name.length > 0) {
     releaseObjectName = cmdOptions.name;
   }
@@ -46,7 +45,7 @@ gulp.task('build', ['clean', 'modules'], function() {
     debug: true
   });
 
-  return b.bundle()
+  b.bundle()
     .pipe(source(destJsFile))
     .pipe(buffer())
     .pipe(sourcemaps.init({
@@ -63,10 +62,12 @@ gulp.task('build', ['clean', 'modules'], function() {
     }))
     .on('error', gutil.log)
     .pipe(sourcemaps.write('./'))
-    .pipe(gulp.dest(distDir));
-});
+    .pipe(dest(distDir));
 
-gulp.task('modules', [], function() {
+  cb();
+}
+
+function modules(cb) {
   var channels = makeChannelModulesContent();
 
   var libs = makeLibModulesContent();
@@ -80,25 +81,14 @@ gulp.task('modules', [], function() {
     libs.replacement);
   fs.writeFileSync(modsJsFile, modsContents, 'utf8');
   console.log('Enabled channels: ' + channels.enabledChannels);
-});
+  cb();
+}
 
-gulp.task('clean', function() {
+function clean(cb) {
   var paths = del.sync(distFiles);
   console.log('Deleted files and folders:\n' + paths.join('\n'));
-});
-
-gulp.task('test', [], function() {
-  var test = require('./test/test.js');
-  test.run();
-});
-
-gulp.task('watch', ['build'], function() {
-  var watcher = gulp.watch(scriptSrcFiles, ['build']);
-  watcher.on('change', function(event) {
-    console.log('File ' + event.path + ' was ' +
-      event.type + ', running tasks...');
-  });
-});
+  cb();
+}
 
 var makeChannelModulesContent = function() {
   var channelPool = fs.readdirSync(channelsDirPath, 'utf8');
@@ -188,3 +178,21 @@ var modnames2text = function(modnames, baseDir) {
 
   return '  ' + _.join(modsContents, ',\n  ');
 };
+
+function watchFiles(cb) {
+  var watcher = watch(scriptSrcFiles, series(build));
+  watcher.on('change', function(path) {
+    console.log('File \'' + path + '\' was changed, running tasks...');
+  });
+
+  cb();
+}
+
+exports.test = function(cb) {
+  var test = require('./test/test.js');
+  test.run();
+  cb();
+};
+exports.build = series(clean, modules, build);
+exports.watch = series(clean, build, watchFiles);
+exports.default = series(build);

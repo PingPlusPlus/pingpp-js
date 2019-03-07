@@ -1,6 +1,6 @@
 {
   "name": "pingpp-js",
-  "version": "2.2.11",
+  "version": "2.2.12",
   "description": "Ping++ HTML5 SDK",
   "main": "src/main.js",
   "homepage": "https://www.pingxx.com",
@@ -16,16 +16,16 @@
   ],
   "dependencies": {},
   "devDependencies": {
-    "browserify": "^13.3.0",
+    "browserify": "^16.2.3",
     "del": "^3.0.0",
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.0",
     "gulp-sourcemaps": "^2.6.4",
-    "gulp-uglify": "^3.0.0",
+    "gulp-uglify": "^3.0.1",
     "gulp-util": "^3.0.8",
-    "lodash": "^4.17.10",
+    "lodash": "^4.17.11",
     "minimist": "^1.2.0",
-    "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^1.1.0"
+    "vinyl-buffer": "^1.0.1",
+    "vinyl-source-stream": "^2.0.0"
   },
   "scripts": {
     "build": "npm install && gulp",

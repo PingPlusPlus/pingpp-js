@@ -1,5 +1,10 @@
 # ChangeLog
 
+### 2.2.12
+
+- 新增：渠道 `wx_pub_hzbank`
+- 更新：`gulp` 更新至 `4.0.0`
+
 ### 2.2.11
 
 - 新增：签约接口 `pingpp.signAgreement(agr, callback)`

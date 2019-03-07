@@ -10,7 +10,7 @@ var collection = {
 };
 var getParam = function(str, param) {
   var reg = new RegExp('(^|&)' + param + '=([^&]*)(&|$)', 'i');
-  var r = str.substr(0).match(reg);
+  var r = str.substring(0).match(reg);
   if (r !== null) return unescape(r[2]);
   return null;
 };
