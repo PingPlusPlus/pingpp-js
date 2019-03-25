@@ -31,7 +31,7 @@ var deprecatedChannels = ['upmp_wap'];
 var parseArgs = require('minimist');
 var cmdOptions = parseArgs(process.argv.slice(2), {
   boolean: ['alipay_in_weixin', 'wx_jssdk', 'agreement'],
-  string: ['channels', 'name', 'ui']
+  string: ['channels', 'name']
 });
 
 function build(cb) {
@@ -140,9 +140,6 @@ var makeLibModulesContent = function() {
   if (hasOwn.call(cmdOptions, 'wx_jssdk') &&
     cmdOptions.wx_jssdk) {
     extranames.push('wx_jssdk');
-  }
-  if (hasOwn.call(cmdOptions, 'ui')) {
-    extranames.push(['ui', './pingpp_ui/init']);
   }
   if (hasOwn.call(cmdOptions, 'agreement')) {
     extranames.push(['agreement', './agreement']);

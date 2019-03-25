@@ -7,13 +7,8 @@
 	* [1.2 如何构建](#1.2)
 	* [1.3 使用说明](#1.3)
 	* [1.4 接入注意事项](#1.4)
-	
-* [2. 使用 Ping++ SDK UI 版](#2)
-	* [2.1 支持的渠道](#2.1)
-	* [2.2 使用说明](#2.2)
-	* [2.3 注意事项](#2.3)
 
-* [3. 常见问题](#3)
+* [2. 常见问题](#2)
 
 ## <h2 id='1'>使用 Ping++ SDK 标准版</h2>
 
@@ -326,108 +321,7 @@ pingpp.createPayment(charge, function(result, err) {
 });
 ```
 
-## <h2 id='2'>使用 Ping++ SDK UI 版</h2>
-
-### <h3 id='2.1'>支持的渠道</h3>
-
-1. 支付宝手机网页支付（alipay_wap）
-2. 百度钱包手机网页支付（bfb_wap）
-3. 银联全渠道手机网页支付（upacp_wap）
-4. 微信WAP支付（wx_wap）
-5. QQ 公众号支付（qpay_pub）
-6. 易宝手机网页支付（yeepay_wap）
-7. 京东手机网页支付（jdpay_wap）
-
-### <h3 id='2.2'>使用说明</h3>
-
-#### 引入 JS 文件
-
-- script 标签方式
-
-    ``` html
-    <script src="/path/to/pingpp_ui.js"></script>
-    ```
-
-#### 使用方法
-
-##### 1.(方法一:) 不带渠道选择页面
-
-**调起支付**
-
-``` js
-// 在支付页调用支付：
-pingpp_ui.createPayment(charge, function(res, err) {
-    if (result == "success") {
-    	// 只有微信公众号 (wx_pub)、QQ 公众号 (qpay_pub)
-    	//支付成功的结果会在这里返回，其他的支付结果都会跳转到 extra 中对应的 URL
-    } else if (result == "fail") {
-        // charge 不正确或者微信公众号/QQ 公众号支付失败时会在此处返回
-    } else if (result == "cancel") {
-        // 微信公众号/QQ 公众号支付取消支付
-    }
-});
-```
-
-**使用支付成功页**
-
-``` js
-//在成功页调用
-pingpp_ui.success(function(res){
-    if(!res.status){
-        alert(res.msg);
-    }
-},function(){
-    window.location.href="http://pingxx.com";   //示例
-});
-```
-
-##### 2.(方法二:) 带渠道选择页面
-
-**使用选择渠道面板**
-
-``` js
-pingpp_ui.init({
-    // 页面上需要展示的渠道，数组，数组顺序即页面展示出的渠道的顺序
-    // upmp_wap 渠道在微信内部无法使用，若用户未安装银联手机支付控件，则无法调起支付
-    channel:['alipay_wap','wx_pub','upacp_wap','yeepay_wap','jdpay_wap','bfb_wap']
-},function(channel){
-    // 用户选择的支付渠道
-    console.log(channel);
-});
-```
-
-**调起支付**
-
-``` js
-// 在支付页调用支付：
-pingpp_ui.createPayment(charge, function(res, err) {
-    if (result == "success") {
-        // 只有微信公众号 (wx_pub)、QQ 公众号 (qpay_pub)
-        //支付成功的结果会在这里返回，其他的支付结果都会跳转到 extra 中对应的 URL
-    } else if (result == "fail") {
-        // charge 不正确或者微信公众号/QQ 公众号支付失败时会在此处返回
-    } else if (result == "cancel") {
-        // 微信公众号/QQ 公众号支付取消支付
-    }
-});
-```
-
-**使用支付成功页**
-
-``` js
-//在成功页调用
-pingpp_ui.success(function(res){
-    if(!res.status){
-        alert(res.msg);
-    }
-},function(){
-    window.location.href="http://pingxx.com";   //示例
-});
-```
-
-### <h3 id="2.3">注意事项</h3>
-
-## <h2 id='3'>常见问题</h3>
+## <h2 id='2'>常见问题</h3>
 
 #### 问题一: H5 页面微信公众号支付调用 Ping++ 提示失败 (来源：工单)
 
