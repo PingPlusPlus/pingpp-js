@@ -23,6 +23,7 @@
     6. 易宝手机网页支付（yeepay_wap）
     7. 京东手机网页支付（jdpay_wap）
     8. 招行一网通支付（cmb_wallet）
+    9. 库分期网页支付（coolcredit）
 
 - PC 网页支付
     1. 支付宝电脑网站支付 (alipay_pc_direct)

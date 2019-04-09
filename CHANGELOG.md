@@ -1,5 +1,9 @@
 # ChangeLog
 
+### 2.2.13
+
+- 新增：渠道 `coolcredit`
+
 ### 2.2.12
 
 - 新增：渠道 `wx_pub_hzbank`

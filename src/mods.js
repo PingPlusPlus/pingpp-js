@@ -26,7 +26,8 @@ mods.channels = {
   wx_pub: require('./channels/wx_pub'),
   wx_pub_hzbank: require('./channels/wx_pub_hzbank'),
   wx_wap: require('./channels/wx_wap'),
-  yeepay_wap: require('./channels/yeepay_wap')
+  yeepay_wap: require('./channels/yeepay_wap'),
+  coolcredit: require('./channels/coolcredit')
 };
 
 mods.extras = {
