@@ -14,6 +14,7 @@ mods.channels = {
   ccb_qr: require('./channels/ccb_qr'),
   cmb_pc_qr: require('./channels/cmb_pc_qr'),
   cmb_wallet: require('./channels/cmb_wallet'),
+  coolcredit: require('./channels/coolcredit'),
   cp_b2b: require('./channels/cp_b2b'),
   isv_wap: require('./channels/isv_wap'),
   jdpay_wap: require('./channels/jdpay_wap'),
@@ -26,8 +27,7 @@ mods.channels = {
   wx_pub: require('./channels/wx_pub'),
   wx_pub_hzbank: require('./channels/wx_pub_hzbank'),
   wx_wap: require('./channels/wx_wap'),
-  yeepay_wap: require('./channels/yeepay_wap'),
-  coolcredit: require('./channels/coolcredit')
+  yeepay_wap: require('./channels/yeepay_wap')
 };
 
 mods.extras = {

@@ -2,7 +2,7 @@
  * Created by dong on 2016/12/30.
  */
 
-var callbacks = require('./callbacks');
+var PingppError = require('./errors').Error;
 var hasOwn = {}.hasOwnProperty;
 
 module.exports = {
@@ -22,17 +22,14 @@ module.exports = {
       try {
         charge = JSON.parse(charge_or_order);
       } catch (err) {
-        callbacks.innerCallback('fail',
-          callbacks.error('json_decode_fail', err));
-        return;
+        throw new PingppError('json_decode_fail', err);
       }
     } else {
       charge = charge_or_order;
     }
 
     if (typeof charge === 'undefined') {
-      callbacks.innerCallback('fail', callbacks.error('json_decode_fail'));
-      return;
+      throw new PingppError('json_decode_fail');
     }
 
     if (hasOwn.call(charge, 'object') && charge.object == 'order') {

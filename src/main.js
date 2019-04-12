@@ -11,6 +11,7 @@ module.exports = new PingppSDK();
 
 var testmode = require('./testmode');
 var callbacks = require('./callbacks');
+var PingppError = require('./errors').Error;
 var mods = require('./mods');
 var stash = require('./stash');
 var dc = require('./collection');
@@ -23,7 +24,17 @@ PingppSDK.prototype.createPayment = function (
     callbacks.userCallback = callback;
   }
 
-  payment_elements.init(chargeJSON);
+  try {
+    payment_elements.init(chargeJSON);
+  } catch (e) {
+    if (e instanceof PingppError) {
+      callbacks.innerCallback('fail',
+        callbacks.error(e.message, e.extra));
+      return;
+    } else {
+      throw e;
+    }
+  }
 
   if (!hasOwn.call(payment_elements, 'id')) {
     callbacks.innerCallback('fail',
