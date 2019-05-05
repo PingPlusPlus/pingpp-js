@@ -16,6 +16,7 @@ mods.channels = {
   cmb_wallet: require('./channels/cmb_wallet'),
   coolcredit: require('./channels/coolcredit'),
   cp_b2b: require('./channels/cp_b2b'),
+  isv_lite: require('./channels/isv_lite'),
   isv_wap: require('./channels/isv_wap'),
   jdpay_wap: require('./channels/jdpay_wap'),
   paypal: require('./channels/paypal'),

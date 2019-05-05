@@ -34,6 +34,7 @@
 - QQ 公众号支付 (qpay_pub)
 - 支付宝口碑 (alipay_qr)
 - 线下扫码支付(isv_wap)
+- 线下小程序支付(isv_lite)
 
 ### <h3 id='1.2'>如何构建</h3>
 

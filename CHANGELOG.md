@@ -1,5 +1,9 @@
 # ChangeLog
 
+### 2.2.14
+
+- 新增：渠道 `isv_lite`
+
 ### 2.2.13
 
 - 新增：渠道 `coolcredit`
