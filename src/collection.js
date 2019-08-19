@@ -96,7 +96,7 @@ collection.report = function(obj) {
   var _this = this;
   _this.store(obj);
   setTimeout(function(){
-    (!utils.inWxLite()) && _this.send();
+    (!utils.inWxLite() && !utils.inAlipayLite()) && _this.send();
   }, _this.timeout);
 };
 
