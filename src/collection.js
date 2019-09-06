@@ -15,13 +15,22 @@ var getParam = function(str, param) {
   return null;
 };
 var getUserAgent = function() {
+  if (typeof navigator === 'undefined') {
+    return '';
+  }
   return navigator.userAgent;
 };
 var getHost = function() {
+  if (typeof window === 'undefined') {
+    return '';
+  }
   return window.location.host;
 };
 
 collection.store = function(obj) {
+  if (utils.inWxLite() || utils.inAlipayLite()) {
+    return;
+  }
   if (typeof localStorage === 'undefined' || localStorage === null) return;
   var _this = this;
   var reportData = {};
@@ -93,10 +102,13 @@ collection.send = function() {
 };
 
 collection.report = function(obj) {
+  if (utils.inWxLite() || utils.inAlipayLite()) {
+    return;
+  }
   var _this = this;
   _this.store(obj);
   setTimeout(function(){
-    (!utils.inWxLite()) && _this.send();
+    _this.send();
   }, _this.timeout);
 };
 

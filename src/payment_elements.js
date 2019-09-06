@@ -15,6 +15,9 @@ module.exports = {
   livemode: null,
   order_no: null,
   time_expire: null,
+  paid: false,
+  status: null,
+  actual_amount: null,
 
   init: function (charge_or_order) {
     var charge;

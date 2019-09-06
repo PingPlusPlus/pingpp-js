@@ -66,6 +66,11 @@ PingppSDK.prototype.createPayment = function (
       callbacks.error('invalid_charge', 'no_credential'));
     return;
   }
+  if (payment_elements.paid && payment_elements.actual_amount === 0) {
+    callbacks.innerCallback('success');
+    return;
+  }
+
   if (!payment_elements.credential) {
     callbacks.innerCallback('fail',
       callbacks.error('invalid_credential', 'credential_is_undefined'));
