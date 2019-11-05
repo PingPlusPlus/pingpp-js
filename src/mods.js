@@ -3,6 +3,7 @@ var mods = {};
 module.exports = mods;
 
 mods.channels = {
+  alipay: require('./channels/alipay'),
   alipay_lite: require('./channels/alipay_lite'),
   alipay_pc_direct: require('./channels/alipay_pc_direct'),
   alipay_qr: require('./channels/alipay_qr'),
