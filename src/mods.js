@@ -20,6 +20,7 @@ mods.channels = {
   isv_lite: require('./channels/isv_lite'),
   isv_wap: require('./channels/isv_wap'),
   jdpay_wap: require('./channels/jdpay_wap'),
+  pab_pc: require('./channels/pab_pc'),
   paypal: require('./channels/paypal'),
   qpay_pub: require('./channels/qpay_pub'),
   upacp_b2b: require('./channels/upacp_b2b'),
@@ -28,6 +29,7 @@ mods.channels = {
   wx_lite: require('./channels/wx_lite'),
   wx_pub: require('./channels/wx_pub'),
   wx_pub_hzbank: require('./channels/wx_pub_hzbank'),
+  wx_pub_pab: require('./channels/wx_pub_pab'),
   wx_wap: require('./channels/wx_wap'),
   yeepay_wap: require('./channels/yeepay_wap')
 };

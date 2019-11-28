@@ -1,5 +1,9 @@
 # ChangeLog
 
+### 2.2.17
+
+- 新增：pab_pc, wx_pub_pab 渠道
+
 ### 2.2.16
 
 - 新增：小程序内使用 alipay 调起支付
