@@ -1,5 +1,9 @@
 # ChangeLog
 
+### 2.2.19
+
+- 新增：支持 alipay_wap_lakala, alipay_qr_lakala
+
 ### 2.2.18
 
 - 修改：支持 alipay 渠道在支付宝小程序或者支付宝内部网页使用
