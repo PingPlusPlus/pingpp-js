@@ -29,6 +29,7 @@ mods.channels = {
   upacp_pc: require('./channels/upacp_pc'),
   upacp_wap: require('./channels/upacp_wap'),
   wx_lite: require('./channels/wx_lite'),
+  wx_lite_pab: require('./channels/wx_lite_pab'),
   wx_pub: require('./channels/wx_pub'),
   wx_pub_hzbank: require('./channels/wx_pub_hzbank'),
   wx_pub_pab: require('./channels/wx_pub_pab'),

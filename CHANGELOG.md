@@ -1,5 +1,9 @@
 # ChangeLog
 
+### 2.2.20
+
+- 新增：支持 wx_lite_pab
+
 ### 2.2.19
 
 - 新增：支持 alipay_wap_lakala, alipay_qr_lakala
