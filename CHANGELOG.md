@@ -1,5 +1,9 @@
 # ChangeLog
 
+### 2.2.21
+
+- 新增: 支持 ccb_wap
+
 ### 2.2.20
 
 - 新增：支持 wx_lite_pab

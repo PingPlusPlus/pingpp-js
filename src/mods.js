@@ -15,6 +15,7 @@ mods.channels = {
   cb_alipay_wap: require('./channels/cb_alipay_wap'),
   cb_wx_pub: require('./channels/cb_wx_pub'),
   ccb_qr: require('./channels/ccb_qr'),
+  ccb_wap: require('./channels/ccb_wap'),
   cmb_pc_qr: require('./channels/cmb_pc_qr'),
   cmb_wallet: require('./channels/cmb_wallet'),
   coolcredit: require('./channels/coolcredit'),

@@ -14,6 +14,7 @@ module.exports = {
     }
 
     this.testCharge();
+    this.testChargeCcbWap();
     this.testAgreement();
   },
 
@@ -21,7 +22,7 @@ module.exports = {
     console.log('running charge test...');
 
     this.pingpp.setUrlReturnCallback(function (err, url) {
-      console.log(url);
+      console.log("UrlReturnCallback: " + url);
     });
 
     var charge = `{
@@ -124,5 +125,61 @@ module.exports = {
     });
 
     console.log(ret);
-  }
+  },
+
+  testChargeCcbWap: function () {
+    console.log('running charge ccb_wap test...');
+
+    this.pingpp.setUrlReturnCallback(function (err, url) {
+      console.log("UrlReturnCallback: " + url);
+    }, ['ccb_wap']);
+
+    var charge = `{
+  "id": "ch_101200415434992752640001",
+  "object": "charge",
+  "created": 1586922479,
+  "livemode": true,
+  "paid": false,
+  "refunded": false,
+  "reversed": false,
+  "app": "app_1Gqj58ynP0mHeX1q",
+  "channel": "ccb_wap",
+  "order_no": "202002060026",
+  "client_ip": "127.0.0.1",
+  "amount": 1,
+  "amount_settle": 1,
+  "currency": "cny",
+  "subject": "测试订单",
+  "body": "订单详情",
+  "extra": {
+      "pos_id": "044507853"
+  },
+  "time_paid": null,
+  "time_expire": 1587008879,
+  "time_settle": null,
+  "transaction_no": null,
+  "refunds": {
+      "object": "list",
+      "url": "/v1/charges/ch_101200415434992752640001/refunds",
+      "has_more": false,
+      "data": []
+  },
+  "amount_refunded": 0,
+  "failure_code": null,
+  "failure_msg": null,
+  "metadata": {},
+  "credential": {
+      "object": "credential",
+      "ccb_wap": {
+          "orderinfo": "MERCHANTID=105000056222895&POSID=044507853&BRANCHID=340000000&ORDERID=202002060026&PAYMENT=0.01&CURCODE=01&TXCODE=520100&REMARK1=ch_101200415434992752640001&TIMEOUT=20200416114759&TYPE=1&GATEWAY=UnionPay&THIRDAPPINFO=comccbpay000000000000000ccb&MAC=a4b3dbf79a7b5ca60da2997103ab6ce9"
+      }
+  },
+  "description": null
+}`;
+
+    this.pingpp.createPayment(charge, function(result, error){
+      console.log(result);
+      console.log(error);
+    });
+  },
 };
