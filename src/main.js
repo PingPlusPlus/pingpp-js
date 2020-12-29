@@ -14,7 +14,6 @@ var callbacks = require('./callbacks');
 var PingppError = require('./errors').Error;
 var mods = require('./mods');
 var stash = require('./stash');
-var dc = require('./collection');
 var payment_elements = require('./payment_elements');
 
 PingppSDK.prototype.createPayment = function (
@@ -55,11 +54,6 @@ PingppSDK.prototype.createPayment = function (
       stash.app_id = payment_elements.app.id;
     }
   }
-  dc.report({
-    type: stash.type || 'pure_sdk_click',
-    channel: payment_elements.channel,
-    ch_id: payment_elements.id
-  });
   var channel = payment_elements.channel;
   if (!hasOwn.call(payment_elements, 'credential')) {
     callbacks.innerCallback('fail',
