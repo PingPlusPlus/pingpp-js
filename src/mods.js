@@ -23,6 +23,8 @@ mods.channels = {
   isv_lite: require('./channels/isv_lite'),
   isv_wap: require('./channels/isv_wap'),
   jdpay_wap: require('./channels/jdpay_wap'),
+  nucc_b2b_lakala: require('./channels/nucc_b2b_lakala'),
+  nucc_b2c_lakala: require('./channels/nucc_b2c_lakala'),
   pab_pc: require('./channels/pab_pc'),
   paypal: require('./channels/paypal'),
   qpay_pub: require('./channels/qpay_pub'),
@@ -35,9 +37,7 @@ mods.channels = {
   wx_pub_hzbank: require('./channels/wx_pub_hzbank'),
   wx_pub_pab: require('./channels/wx_pub_pab'),
   wx_wap: require('./channels/wx_wap'),
-  yeepay_wap: require('./channels/yeepay_wap'),
-  nucc_b2c_lakala: require('./channels/nucc_b2c_lakala'),
-  nucc_b2b_lakala: require('./channels/nucc_b2b_lakala'),
+  yeepay_wap: require('./channels/yeepay_wap')
 };
 
 mods.extras = {
