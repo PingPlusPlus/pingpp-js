@@ -29,6 +29,7 @@
     1. 支付宝电脑网站支付 (alipay_pc_direct)
     2. 银联网关支付 (upacp_pc)
     3. 银联企业网银支付 (cp_b2b)
+    4. 拉卡拉网联B2C/B2B支付
 
 - 微信公众账号支付(wx_pub)
 - QQ 公众号支付 (qpay_pub)

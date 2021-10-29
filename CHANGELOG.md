@@ -1,5 +1,9 @@
 # ChangeLog
 
+## 2.2.23
+
+- 新增 nucc_b2b_lakala,nucc_b2c_lakala
+
 ### 2.2.22
 
 - 修正：在部分“浏览器”无法正常打开的异常
