@@ -35,7 +35,9 @@ mods.channels = {
   wx_pub_hzbank: require('./channels/wx_pub_hzbank'),
   wx_pub_pab: require('./channels/wx_pub_pab'),
   wx_wap: require('./channels/wx_wap'),
-  yeepay_wap: require('./channels/yeepay_wap')
+  yeepay_wap: require('./channels/yeepay_wap'),
+  nucc_b2c_lakala: require('./channels/nucc_b2c_lakala'),
+  nucc_b2b_lakala: require('./channels/nucc_b2b_lakala'),
 };
 
 mods.extras = {
