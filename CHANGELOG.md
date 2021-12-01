@@ -1,5 +1,7 @@
 # ChangeLog
+
 ## 2.2.24
+
 - 新增chinaums_alipay_wap, chinaums_upacp_wap, chinaums_wx_wap, chinaums_alipay_pub, chinaums_wx_pub
 
 ## 2.2.23
