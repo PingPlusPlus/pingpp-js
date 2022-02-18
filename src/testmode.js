@@ -1,7 +1,7 @@
 var utils = require('./utils');
 var hasOwn = {}.hasOwnProperty;
 module.exports = {
-  PINGPP_MOCK_URL: 'http://sissi.pingxx.com/mock.php',
+  PINGPP_MOCK_URL: 'https://sissi.pingxx.com/mock.php',
 
   runTestMode: function (charge) {
     var params = {
