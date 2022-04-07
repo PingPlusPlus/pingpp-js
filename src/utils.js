@@ -218,5 +218,8 @@ var utils = module.exports = {
         callback();
       }
     }
-  }
+  },
+  deviceDetectorMobile: function () {
+    return /Mobi/.test(window.navigator.userAgent);
+  },
 };
