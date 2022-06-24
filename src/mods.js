@@ -5,6 +5,8 @@ module.exports = mods;
 mods.channels = {
   alipay: require('./channels/alipay'),
   alipay_lite: require('./channels/alipay_lite'),
+  abc_pay: require('./channels/abc_pay'),
+  abc_pub: require('./channels/abc_pub'),
   alipay_pc_direct: require('./channels/alipay_pc_direct'),
   alipay_qr: require('./channels/alipay_qr'),
   alipay_qr_lakala: require('./channels/alipay_qr_lakala'),
