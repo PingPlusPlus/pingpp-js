@@ -25,7 +25,6 @@ mods.channels = {
   chinaums_wx_wap: require('./channels/chinaums_wx_wap'),
   cmb_pc_qr: require('./channels/cmb_pc_qr'),
   cmb_wallet: require('./channels/cmb_wallet'),
-  coolcredit: require('./channels/coolcredit'),
   cp_b2b: require('./channels/cp_b2b'),
   isv_lite: require('./channels/isv_lite'),
   isv_wap: require('./channels/isv_wap'),
@@ -41,10 +40,13 @@ mods.channels = {
   wx_lite: require('./channels/wx_lite'),
   wx_lite_pab: require('./channels/wx_lite_pab'),
   wx_pub: require('./channels/wx_pub'),
-  wx_pub_hzbank: require('./channels/wx_pub_hzbank'),
   wx_pub_pab: require('./channels/wx_pub_pab'),
   wx_wap: require('./channels/wx_wap'),
-  yeepay_wap: require('./channels/yeepay_wap')
+  yeepay_wap: require('./channels/yeepay_wap'),
+  yeepay_wx_pub: require('./channels/yeepay_wx_pub'),
+  yeepay_wx_pub_ofl: require('./channels/yeepay_wx_pub'),
+  yeepay_wx_lite: require('./channels/yeepay_wx_lite'),
+  yeepay_wx_lite_ofl: require('./channels/yeepay_wx_lite_ofl')
 };
 
 mods.extras = {
