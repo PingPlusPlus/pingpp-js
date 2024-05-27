@@ -58,7 +58,7 @@ module.exports = {
 
     if (agreementObj.channel.substring(0, 6) === 'alipay' && utils.deviceDetectorMobile()) {
       var url = new URL(urlToOpen);
-      urlToOpen = 'http://d.alipay.com/i/index.htm?iframeSrc='
+      urlToOpen = 'https://d.alipay.com/i/index.htm?iframeSrc='
         + encodeURIComponent('alipays://platformapi/startapp?appId=60000157'
           +'&appClearTop=false&startMultApp=YES&sign_params='
           + encodeURIComponent(url.search.substring(1))
