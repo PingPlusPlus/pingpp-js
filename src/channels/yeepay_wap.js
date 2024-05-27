@@ -5,7 +5,7 @@ var hasOwn = {}.hasOwnProperty;
 module.exports = {
 
   YEEPAY_WAP_URL: 'https://ok.yeepay.com/paymobile/api/pay/request',
-  YEEPAY_WAP_TEST_URL: 'http://mobiletest.yeepay.com/paymobile/api/pay/request',
+  YEEPAY_WAP_TEST_URL: 'https://mobiletest.yeepay.com/paymobile/api/pay/request',
 
   handleCharge: function(charge) {
     var channel = charge.channel;
