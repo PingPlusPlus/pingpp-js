@@ -48,9 +48,9 @@ function build(cb) {
   b.bundle()
     .pipe(source(destJsFile))
     .pipe(buffer())
-    .pipe(sourcemaps.init({
-      loadMaps: true
-    }))
+    // .pipe(sourcemaps.init({
+    //   loadMaps: true
+    // }))
     .pipe(uglify({
       mangle: {
         reserved: ['PingppSDK']
@@ -61,7 +61,7 @@ function build(cb) {
       }
     }))
     .on('error', gutil.log)
-    .pipe(sourcemaps.write('./'))
+    // .pipe(sourcemaps.write('./'))
     .pipe(dest(distDir));
 
   cb();
@@ -190,6 +190,7 @@ exports.test = function(cb) {
   test.run();
   cb();
 };
+
 exports.build = series(clean, modules, build);
 exports.watch = series(clean, build, watchFiles);
 exports.default = series(build);

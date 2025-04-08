@@ -3,10 +3,10 @@ var mods = {};
 module.exports = mods;
 
 mods.channels = {
-  alipay: require('./channels/alipay'),
-  alipay_lite: require('./channels/alipay_lite'),
   abc_pay: require('./channels/abc_pay'),
   abc_pub: require('./channels/abc_pub'),
+  alipay: require('./channels/alipay'),
+  alipay_lite: require('./channels/alipay_lite'),
   alipay_pc_direct: require('./channels/alipay_pc_direct'),
   alipay_qr: require('./channels/alipay_qr'),
   alipay_qr_lakala: require('./channels/alipay_qr_lakala'),
@@ -43,10 +43,10 @@ mods.channels = {
   wx_pub_pab: require('./channels/wx_pub_pab'),
   wx_wap: require('./channels/wx_wap'),
   yeepay_wap: require('./channels/yeepay_wap'),
-  yeepay_wx_pub: require('./channels/yeepay_wx_pub'),
-  yeepay_wx_pub_ofl: require('./channels/yeepay_wx_pub'),
   yeepay_wx_lite: require('./channels/yeepay_wx_lite'),
-  yeepay_wx_lite_ofl: require('./channels/yeepay_wx_lite_ofl')
+  yeepay_wx_lite_ofl: require('./channels/yeepay_wx_lite_ofl'),
+  yeepay_wx_pub: require('./channels/yeepay_wx_pub'),
+  yeepay_wx_pub_ofl: require('./channels/yeepay_wx_pub_ofl')
 };
 
 mods.extras = {
@@ -54,9 +54,20 @@ mods.extras = {
   agreement: require('./agreement')
 };
 
+mods.transferChannels = {
+  wx_pub: require('./transfer_channels/wx_pub'),
+}
+
 mods.getChannelModule = function(channel) {
   if (hasOwn.call(mods.channels, channel)) {
     return mods.channels[channel];
+  }
+  return undefined;
+};
+
+mods.getTransferChannelModule = function(channel) {
+  if (hasOwn.call(mods.transferChannels, channel)) {
+    return mods.transferChannels[channel];
   }
   return undefined;
 };

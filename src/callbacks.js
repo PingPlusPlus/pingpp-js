@@ -1,5 +1,4 @@
 module.exports = {
-
   userCallback: undefined,
 
   urlReturnCallback: undefined,
@@ -10,7 +9,9 @@ module.exports = {
 
   userAgreementCallback: undefined,
 
-  innerCallback: function(result, err) {
+  userTransferCallback: undefined,
+
+  innerCallback: function (result, err) {
     if (typeof this.userCallback === 'function') {
       if (typeof err === 'undefined') {
         err = this.error();
@@ -22,12 +23,12 @@ module.exports = {
     }
   },
 
-  error: function(msg, extra) {
-    msg = (typeof msg === 'undefined') ? '' : msg;
-    extra = (typeof extra === 'undefined') ? '' : extra;
+  error: function (msg, extra) {
+    msg = typeof msg === 'undefined' ? '' : msg;
+    extra = typeof extra === 'undefined' ? '' : extra;
     return {
       msg: msg,
-      extra: extra
+      extra: extra,
     };
   },
 
@@ -44,7 +45,7 @@ module.exports = {
     return this.urlReturnChannels.indexOf(channel) !== -1;
   },
 
-  innerAgreementCallback: function(result, err) {
+  innerAgreementCallback: function (result, err) {
     if (typeof this.userAgreementCallback === 'function') {
       if (typeof err === 'undefined') {
         err = this.error();
@@ -52,5 +53,15 @@ module.exports = {
       this.userAgreementCallback(result, err);
       this.userAgreementCallback = undefined;
     }
-  }
+  },
+
+  innerTransferCallback: function (result, err) {
+    if (typeof this.userTransferCallback === 'function') {
+      if (typeof err === 'undefined') {
+        err = this.error();
+      }
+      this.userTransferCallback(result, err);
+      this.userTransferCallback = undefined;
+    }
+  },
 };

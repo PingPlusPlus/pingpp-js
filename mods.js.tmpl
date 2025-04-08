@@ -10,9 +10,20 @@ mods.extras = {
 <<REPLACE-EXTRAS>>
 };
 
+mods.transferChannels = {
+  wx_pub: require('./transfer_channels/wx_pub'),
+}
+
 mods.getChannelModule = function(channel) {
   if (hasOwn.call(mods.channels, channel)) {
     return mods.channels[channel];
+  }
+  return undefined;
+};
+
+mods.getTransferChannelModule = function(channel) {
+  if (hasOwn.call(mods.transferChannels, channel)) {
+    return mods.transferChannels[channel];
   }
   return undefined;
 };
