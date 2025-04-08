@@ -5,17 +5,68 @@ module.exports = {
   pingpp: undefined,
 
   run: function() {
-    var version = require('../package.json').version;
+    const version = require('../package.json').version;
     this.pingpp = require('../src/main.js');
-    if (version != this.pingpp.version) {
+    if (version !== this.pingpp.version) {
       console.error('Version number does not match.');
     } else {
-      console.log('Version: ' + this.pingpp.version);
+      console.log(`Version: ${this.pingpp.version}`);
     }
 
     this.testCharge();
     this.testChargeCcbWap();
     this.testAgreement();
+    this.testTransfer()
+  },
+
+  testTransfer: function () {
+    console.log('running transfer test...');
+
+    const transfer = {
+      "id": "tr_131250327649096837120006",
+      "object": "transfer",
+      "type": "b2c",
+      "created": 1743068187,
+      "time_transferred": null,
+      "livemode": true,
+      "status": "wait_user_confirm",
+      "app": "app_1Gqj58ynP0mHeX1q",
+      "channel": "wx_pub",
+      "order_no": "912111743068187",
+      "batch_no": null,
+      "amount": 10,
+      "amount_settle": 10,
+      "currency": "cny",
+      "recipient": "otdLiw0bx_HJUALDp_dzAAjp7BCA",
+      "description": "转账测试",
+      "transaction_no": "1330000139344692503270012303775666",
+      "failure_msg": null,
+      "extra": {
+        "scene_id": "1005",
+        "product_code": "fund-app",
+        "scene_report_info": [
+          {
+            "info_type": "岗位类型",
+            "info_content": "测试"
+          },
+          {
+            "info_type": "报酬说明",
+            "info_content": "测试"
+          }
+        ],
+        "package": "ABBQO+oYAAABAAAAAADBGUx8UBAabcdHHhzlZxAAAADnGabcZahT9IkJjn90+abcRXA0BwkohpO9+F1BLQuBl2pCXphJtQK18bS/ShfGsIUmr1UTByVyMKCC/0/aUmIbP9y7Q8s7qutM1gFiMDRKQbtU2ks=",
+        "mchId": "1250015000",
+        "appId": "wx9cfac8008001600"
+      },
+      "metadata": {}
+    }
+
+    const ret = this.pingpp.createTransfer(transfer, (result, error) => {
+      console.log(result);
+      console.log(error);
+    });
+
+    console.log(ret);
   },
 
   testCharge: function () {

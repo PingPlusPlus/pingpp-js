@@ -1,6 +1,6 @@
 {
   "name": "pingpp-js",
-  "version": "2.3.1",
+  "version": "2.4.0",
   "description": "Ping++ HTML5 SDK",
   "main": "src/main.js",
   "homepage": "https://www.pingxx.com",
@@ -29,6 +29,7 @@
   },
   "scripts": {
     "build": "npm install && gulp",
+    "build:modules": "npm install && gulp build --alipay_in_weixin",
     "test": "gulp && gulp test"
   },
   "author": "Afon",
