@@ -16,6 +16,7 @@ var mods = require('./mods');
 var stash = require('./stash');
 var payment_elements = require('./payment_elements');
 var transfer_elements = require('./transfer_elements');
+ var withdrawal_elements = require('./withdrawal_elements');
 
 PingppSDK.prototype.createPayment = function (
   chargeJSON, callback, signature, debug
@@ -150,7 +151,7 @@ PingppSDK.prototype.createTransfer = function (transfer, callback) {
   if (typeof callback === "function") {
     callbacks.userTransferCallback = callback;
   }
-  
+
   try {
     transfer_elements.init(transfer);
   } catch (e) {
@@ -240,11 +241,102 @@ PingppSDK.prototype.createTransfer = function (transfer, callback) {
     return;
   }
 
-  if (typeof signature != "undefined") {
-    stash.signature = signature;
-  }
-  if (typeof debug == "boolean") {
-    stash.debug = debug;
-  }
   channelModule.handleTransfer(transfer_elements);
+};
+
+PingppSDK.prototype.createWithdrawal = function (withdrawal, callback) {
+  if (typeof callback === "function") {
+    callbacks.userWithdrawalCallback = callback;
+  }
+
+  try {
+    withdrawal_elements.init(withdrawal);
+  } catch (e) {
+    if (e instanceof PingppError) {
+      callbacks.innerWithdrawalCallback(
+        "fail",
+        callbacks.error(e.message, e.extra),
+      );
+      return;
+    } else {
+      throw e;
+    }
+  }
+
+  if (!hasOwn.call(withdrawal_elements, "id")) {
+    callbacks.innerWithdrawalCallback(
+      "fail",
+      callbacks.error("invalid_withdrawal", "no_withdrawal_id"),
+    );
+    return;
+  }
+
+  if (!hasOwn.call(withdrawal_elements, "channel")) {
+    callbacks.innerWithdrawalCallback(
+      "fail",
+      callbacks.error("invalid_withdrawal", "no_channel"),
+    );
+    return;
+  }
+
+  if (hasOwn.call(withdrawal_elements, "app")) {
+    if (typeof withdrawal_elements.app === "string") {
+      stash.app_id = withdrawal_elements.app;
+    } else if (
+      typeof withdrawal_elements.app === "object" &&
+      typeof withdrawal_elements.app.id === "string"
+    ) {
+      stash.app_id = withdrawal_elements.app.id;
+    }
+  }
+
+  const channel = withdrawal_elements.channel;
+  if (!hasOwn.call(withdrawal_elements, "extra")) {
+    callbacks.innerWithdrawalCallback(
+      "fail",
+      callbacks.error("invalid_withdrawal", "no_credential"),
+    );
+    return;
+  }
+  if (withdrawal_elements.status === "succeeded") {
+    callbacks.innerWithdrawalCallback("success");
+    return;
+  }
+
+  if (!withdrawal_elements.extra) {
+    callbacks.innerWithdrawalCallback(
+      "fail",
+      callbacks.error("invalid_credential", "credential_is_undefined"),
+    );
+    return;
+  }
+
+  if (!hasOwn.call(withdrawal_elements, "livemode")) {
+    callbacks.innerWithdrawalCallback(
+      "fail",
+      callbacks.error("invalid_withdrawal", "no_livemode_field"),
+    );
+    return;
+  }
+  const channelModule = mods.getWithdrawalChannelModule(channel);
+  if (typeof channelModule === "undefined") {
+    console.error('withdrawal channel module "' + channel + '" is undefined');
+    callbacks.innerWithdrawalCallback(
+      "fail",
+      callbacks.error(
+        "invalid_channel",
+        'withdrawal channel module "' + channel + '" is undefined',
+      ),
+    );
+    return;
+  }
+  if (withdrawal_elements.livemode === false) {
+    callbacks.innerWithdrawalCallback(
+      "fail",
+      callbacks.error("invalid_withdrawal", "testmode_not_supported"),
+    );
+    return;
+  }
+
+  channelModule.handleWithdrawal(withdrawal_elements);
 };

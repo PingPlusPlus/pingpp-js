@@ -93,13 +93,13 @@ function clean(cb) {
 var makeChannelModulesContent = function() {
   var channelPool = fs.readdirSync(channelsDirPath, 'utf8');
   var allChannels = _.map(channelPool, function(ch) {
-    if (ch.substr(0, 1) == '.' || ch.substr(-3) != '.js') {
+    if (ch.slice(0, 1) === '.' || ch.slice(-3) !== '.js') {
       return undefined;
     }
-    return ch.substr(0, ch.length - 3);
+    return ch.slice(0, -3);
   });
   allChannels = _.remove(allChannels, function(ch) {
-    return typeof ch != 'undefined';
+    return typeof ch !== 'undefined';
   });
   var enabledChannels;
   if (hasOwn.call(cmdOptions, 'channels') && cmdOptions.channels.length > 0) {
@@ -132,17 +132,13 @@ var makeChannelModulesContent = function() {
 
 var makeLibModulesContent = function() {
   var extraBaseDir = './channels/extras/';
-  var extranames = [];
-  if (hasOwn.call(cmdOptions, 'alipay_in_weixin') &&
-    cmdOptions.alipay_in_weixin) {
-    extranames.push('ap');
-  }
+  var extranames = [
+    'ap',
+    ['agreement', './agreement']
+  ];
   if (hasOwn.call(cmdOptions, 'wx_jssdk') &&
     cmdOptions.wx_jssdk) {
     extranames.push('wx_jssdk');
-  }
-  if (hasOwn.call(cmdOptions, 'agreement')) {
-    extranames.push(['agreement', './agreement']);
   }
 
   return {

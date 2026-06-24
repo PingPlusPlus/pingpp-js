@@ -14,6 +14,10 @@ mods.transferChannels = {
   wx_pub: require('./transfer_channels/wx_pub'),
 }
 
+mods.withdrawalChannels = {
+  wx_pub: require('./withdrawal_channels/wx_pub'),
+}
+
 mods.getChannelModule = function(channel) {
   if (hasOwn.call(mods.channels, channel)) {
     return mods.channels[channel];
@@ -24,6 +28,13 @@ mods.getChannelModule = function(channel) {
 mods.getTransferChannelModule = function(channel) {
   if (hasOwn.call(mods.transferChannels, channel)) {
     return mods.transferChannels[channel];
+  }
+  return undefined;
+};
+
+mods.getWithdrawalChannelModule = function(channel) {
+  if (hasOwn.call(mods.withdrawalChannels, channel)) {
+    return mods.withdrawalChannels[channel];
   }
   return undefined;
 };

@@ -11,6 +11,8 @@ module.exports = {
 
   userTransferCallback: undefined,
 
+  userWithdrawalCallback: undefined,
+
   innerCallback: function (result, err) {
     if (typeof this.userCallback === 'function') {
       if (typeof err === 'undefined') {
@@ -62,6 +64,18 @@ module.exports = {
       }
       this.userTransferCallback(result, err);
       this.userTransferCallback = undefined;
+    }
+  },
+
+  innerWithdrawalCallback: function (result, err) {
+    if (typeof this.userWithdrawalCallback === 'function') {
+      if (typeof err === 'undefined') {
+        err = this.error();
+      }
+      this.userWithdrawalCallback(result, err);
+      this.userWithdrawalCallback = undefined;
+      var withdrawal_elements = require('./withdrawal_elements');
+      withdrawal_elements.clear();
     }
   },
 };

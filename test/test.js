@@ -16,7 +16,7 @@ module.exports = {
     this.testCharge();
     this.testChargeCcbWap();
     this.testAgreement();
-    this.testTransfer()
+    this.testTransfer();
   },
 
   testTransfer: function () {

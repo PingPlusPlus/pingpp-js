@@ -1,6 +1,6 @@
 {
   "name": "pingpp-js",
-  "version": "2.4.0",
+  "version": "2.5.0",
   "description": "Ping++ HTML5 SDK",
   "main": "src/main.js",
   "homepage": "https://www.pingxx.com",
@@ -22,7 +22,7 @@
     "gulp-sourcemaps": "^2.6.4",
     "gulp-uglify": "^3.0.1",
     "gulp-util": "^3.0.8",
-    "lodash": "^4.17.11",
+    "lodash": "^4.18.1",
     "minimist": "1.2.6",
     "vinyl-buffer": "^1.0.1",
     "vinyl-source-stream": "^2.0.0"

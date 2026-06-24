@@ -31,7 +31,6 @@ mods.channels = {
   jdpay_wap: require('./channels/jdpay_wap'),
   nucc_b2b_lakala: require('./channels/nucc_b2b_lakala'),
   nucc_b2c_lakala: require('./channels/nucc_b2c_lakala'),
-  pab_pc: require('./channels/pab_pc'),
   paypal: require('./channels/paypal'),
   qpay_pub: require('./channels/qpay_pub'),
   upacp_b2b: require('./channels/upacp_b2b'),
@@ -58,6 +57,10 @@ mods.transferChannels = {
   wx_pub: require('./transfer_channels/wx_pub'),
 }
 
+mods.withdrawalChannels = {
+  wx_pub: require('./withdrawal_channels/wx_pub'),
+}
+
 mods.getChannelModule = function(channel) {
   if (hasOwn.call(mods.channels, channel)) {
     return mods.channels[channel];
@@ -68,6 +71,13 @@ mods.getChannelModule = function(channel) {
 mods.getTransferChannelModule = function(channel) {
   if (hasOwn.call(mods.transferChannels, channel)) {
     return mods.transferChannels[channel];
+  }
+  return undefined;
+};
+
+mods.getWithdrawalChannelModule = function(channel) {
+  if (hasOwn.call(mods.withdrawalChannels, channel)) {
+    return mods.withdrawalChannels[channel];
   }
   return undefined;
 };
