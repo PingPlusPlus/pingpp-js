@@ -1,8 +1,8 @@
 {
   "name": "pingpp-js",
-  "version": "2.5.0",
+  "version": "2.5.1",
   "description": "Ping++ HTML5 SDK",
-  "main": "src/main.js",
+  "main": "dist/pingpp.js",
   "homepage": "https://www.pingxx.com",
   "repository": {
     "type": "git",
@@ -28,8 +28,10 @@
     "vinyl-source-stream": "^2.0.0"
   },
   "scripts": {
-    "build": "npm install && gulp",
-    "build:modules": "npm install && gulp build --alipay_in_weixin",
+    "build": "gulp build",
+    "build:modules": "gulp build --alipay_in_weixin",
+    "prepack": "gulp build",
+    "test:e2e": "node test/e2e/run.cjs",
     "test": "gulp && gulp test"
   },
   "author": "Afon",
