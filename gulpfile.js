@@ -5,8 +5,7 @@ var browserify = require('browserify');
 var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 var uglify = require('gulp-uglify');
-var sourcemaps = require('gulp-sourcemaps');
-var gutil = require('gulp-util');
+var stream = require('stream');
 var del = require('del');
 var fs = require('fs');
 var _ = require('lodash');
@@ -45,13 +44,30 @@ function build(cb) {
     debug: true
   });
 
-  b.bundle()
-    .pipe(source(destJsFile))
-    .pipe(buffer())
-    // .pipe(sourcemaps.init({
-    //   loadMaps: true
-    // }))
-    .pipe(uglify({
+  var modsContents = makeModulesContent();
+  // Apply channel selection to this bundle only. Never overwrite the npm
+  // source registry when producing a custom browser/mini-program bundle.
+  b.transform(function(file) {
+    if (file !== modsJsFile) {
+      return new stream.PassThrough();
+    }
+    return new stream.Transform({
+      transform: function(chunk, encoding, callback) {
+        callback();
+      },
+      flush: function(callback) {
+        this.push(modsContents);
+        callback();
+      }
+    });
+  });
+
+  // Gulp must wait for the output and propagate bundling/minification errors.
+  stream.pipeline(
+    b.bundle(),
+    source(destJsFile),
+    buffer(),
+    uglify({
       mangle: {
         reserved: ['PingppSDK']
       },
@@ -59,15 +75,13 @@ function build(cb) {
         quote_style: 3,
         max_line_len: 32000
       }
-    }))
-    .on('error', gutil.log)
-    // .pipe(sourcemaps.write('./'))
-    .pipe(dest(distDir));
-
-  cb();
+    }),
+    dest(distDir),
+    cb
+  );
 }
 
-function modules(cb) {
+function makeModulesContent() {
   var channels = makeChannelModulesContent();
 
   var libs = makeLibModulesContent();
@@ -79,9 +93,8 @@ function modules(cb) {
   modsContents = _.replace(modsContents,
     replaceLibsPattern,
     libs.replacement);
-  fs.writeFileSync(modsJsFile, modsContents, 'utf8');
   console.log('Enabled channels: ' + channels.enabledChannels);
-  cb();
+  return modsContents;
 }
 
 function clean(cb) {
@@ -106,9 +119,8 @@ var makeChannelModulesContent = function() {
     enabledChannels = _.split(cmdOptions.channels, /[\s,]+/);
     _.forEach(enabledChannels, function(ch) {
       if (!_.includes(allChannels, ch)) {
-        console.log('Channel ' + ch +
+        throw new Error('Channel ' + ch +
           ' is invalid. The channels you can use: ' + allChannels + '.');
-        process.exit(0);
       }
     });
   } else {
@@ -187,6 +199,6 @@ exports.test = function(cb) {
   cb();
 };
 
-exports.build = series(clean, modules, build);
+exports.build = series(clean, build);
 exports.watch = series(clean, build, watchFiles);
-exports.default = series(build);
+exports.default = exports.build;

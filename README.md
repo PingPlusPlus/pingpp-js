@@ -51,8 +51,12 @@ npm install -g gulp
 默认会包含所有渠道
 
 ``` bash
+npm install
 npm run build
 ```
+
+`npm pack` / `npm publish` 会通过 `prepack` 重新构建完整渠道版本。
+自定义构建仅影响 `dist/pingpp.js`，不会改写 `src/mods.js`。
 
 #### 自定义构建
 
@@ -149,6 +153,22 @@ gulp build --agreement
     ``` html
     <script src="/path/to/pingpp.js"></script>
     ```
+
+- React / Vue / uni-app H5
+
+    ``` javascript
+    import pingpp from 'pingpp-js';
+
+    // charge 为服务端返回的完整支付对象，在客户端事件中调用。
+    pingpp.createPayment(charge, function (result, err) {
+      console.log(result, err);
+    });
+    ```
+
+    npm 入口使用预打包的 `dist/pingpp.js`，避免应用构建工具转换 SDK
+    内部的 CommonJS 循环依赖时导致渠道初始化异常。无需额外注册渠道。
+    `yeepay_wx_pub_ofl` 使用微信公众号支付桥，需在微信内的 H5 页面调用；
+    uni-app 小程序应使用与平台对应的渠道和凭证。
 
 #### 使用服务端创建的 [charge](https://www.pingxx.com/docs/overview) 调用接口
 
@@ -324,6 +344,20 @@ pingpp.createPayment(charge, function(result, err) {
 ```
 
 ## <h2 id='2'>常见问题</h3>
+
+#### npm 导入后报 `channel module "yeepay_wx_pub_ofl" is undefined`
+
+先确认安装版本包含该渠道，并使用完整渠道构建。旧版 npm 入口是 `src/main.js`，
+部分 CommonJS 转换配置会改变循环依赖的初始化顺序。对于包含该渠道的旧版本，
+可先改用预打包入口：
+
+```js
+import pingpp from 'pingpp-js/dist/pingpp.js';
+```
+
+升级到包含本修复的版本后，可继续使用 `import pingpp from 'pingpp-js'`。
+渠道字段及 `credential` 中的渠道键应保持服务端返回值，不要将
+`yeepay_wx_pub_ofl` 手动改为 `wx_pub`。
 
 #### 问题一: H5 页面微信公众号支付调用 Ping++ 提示失败 (来源：工单)
 
